@@ -4,37 +4,28 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-black via-zinc-950 to-black text-white">
 
-      {/* HEADER FIXO */}
+      {/* HEADER */}
       <header className="fixed top-0 left-0 w-full flex items-center justify-between px-16 py-8 bg-black/80 backdrop-blur-md z-50">
 
-        {/* LOGO */}
+        {/* LOGO MAIOR */}
         <div className="flex items-center">
 
           <Image
             src="/zoopai-logo.png"
             alt="ZoopAI Logo"
-            width={220}
-            height={220}
+            width={260}
+            height={260}
             className="object-contain hover:scale-105 transition"
             priority
           />
 
         </div>
 
-        {/* BOTÃO HEADER */}
-        <a
-          href="https://wa.me/5567991234567"
-          target="_blank"
-          className="bg-green-500 hover:bg-green-400 text-black font-semibold px-8 py-3 rounded-xl transition hover:scale-105"
-        >
-          WhatsApp
-        </a>
-
       </header>
 
 
       {/* HERO */}
-      <section className="flex flex-col items-center justify-center text-center px-6 pt-48 pb-24">
+      <section className="flex flex-col items-center justify-center text-center px-6 pt-56 pb-24">
 
         <h1 className="text-5xl md:text-7xl font-bold mb-6">
           Agentes de Inteligência Artificial
@@ -96,7 +87,7 @@ export default function Home() {
       </section>
 
 
-      {/* BOTÃO WHATSAPP FLUTUANTE */}
+      {/* BOTÃO WHATSAPP FLUTUANTE (ÚNICO) */}
       <a
         href="https://wa.me/5567991234567"
         target="_blank"
