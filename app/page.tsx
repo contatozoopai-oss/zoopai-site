@@ -5,16 +5,16 @@ export default function Home() {
     <main className="min-h-screen bg-gradient-to-b from-black via-zinc-950 to-black text-white">
 
       {/* HEADER FIXO */}
-      <header className="fixed top-0 left-0 w-full flex items-center justify-between px-12 py-6 bg-black/80 backdrop-blur-md z-50">
+      <header className="fixed top-0 left-0 w-full flex items-center justify-between px-16 py-8 bg-black/80 backdrop-blur-md z-50">
 
-        {/* LOGO GRANDE */}
+        {/* LOGO */}
         <div className="flex items-center">
 
           <Image
             src="/zoopai-logo.png"
             alt="ZoopAI Logo"
-            width={170}
-            height={170}
+            width={220}
+            height={220}
             className="object-contain hover:scale-105 transition"
             priority
           />
@@ -25,7 +25,7 @@ export default function Home() {
         <a
           href="https://wa.me/5567991234567"
           target="_blank"
-          className="bg-green-500 hover:bg-green-400 text-black font-semibold px-7 py-3 rounded-xl transition"
+          className="bg-green-500 hover:bg-green-400 text-black font-semibold px-8 py-3 rounded-xl transition hover:scale-105"
         >
           WhatsApp
         </a>
@@ -34,7 +34,7 @@ export default function Home() {
 
 
       {/* HERO */}
-      <section className="flex flex-col items-center justify-center text-center px-6 pt-40 pb-24">
+      <section className="flex flex-col items-center justify-center text-center px-6 pt-48 pb-24">
 
         <h1 className="text-5xl md:text-7xl font-bold mb-6">
           Agentes de Inteligência Artificial
@@ -47,7 +47,7 @@ export default function Home() {
         <a
           href="https://wa.me/5567991234567"
           target="_blank"
-          className="bg-green-500 hover:bg-green-400 text-black font-semibold px-10 py-4 rounded-xl text-lg transition hover:scale-105"
+          className="bg-green-500 hover:bg-green-400 text-black font-semibold px-12 py-5 rounded-xl text-lg transition hover:scale-105"
         >
           Falar com especialista
         </a>
@@ -62,9 +62,9 @@ export default function Home() {
           Soluções ZoopAI
         </h2>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto">
 
-          <div className="bg-zinc-900 p-8 rounded-2xl border border-zinc-800 hover:border-blue-400 hover:scale-105 transition">
+          <div className="bg-zinc-900 p-10 rounded-2xl border border-zinc-800 hover:border-blue-400 hover:scale-105 transition">
             <h3 className="text-xl font-semibold mb-3 text-blue-400">
               Atendimento Automático
             </h3>
@@ -73,7 +73,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="bg-zinc-900 p-8 rounded-2xl border border-zinc-800 hover:border-blue-400 hover:scale-105 transition">
+          <div className="bg-zinc-900 p-10 rounded-2xl border border-zinc-800 hover:border-blue-400 hover:scale-105 transition">
             <h3 className="text-xl font-semibold mb-3 text-blue-400">
               Agente de Vendas
             </h3>
@@ -82,7 +82,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="bg-zinc-900 p-8 rounded-2xl border border-zinc-800 hover:border-blue-400 hover:scale-105 transition">
+          <div className="bg-zinc-900 p-10 rounded-2xl border border-zinc-800 hover:border-blue-400 hover:scale-105 transition">
             <h3 className="text-xl font-semibold mb-3 text-blue-400">
               Automação Empresarial
             </h3>
@@ -100,7 +100,7 @@ export default function Home() {
       <a
         href="https://wa.me/5567991234567"
         target="_blank"
-        className="fixed bottom-6 right-6 bg-green-500 hover:bg-green-400 text-black font-bold px-6 py-4 rounded-full shadow-lg hover:scale-110 transition z-50"
+        className="fixed bottom-8 right-8 bg-green-500 hover:bg-green-400 text-black font-bold px-7 py-5 rounded-full shadow-lg hover:scale-110 transition z-50"
       >
         WhatsApp
       </a>
@@ -108,7 +108,7 @@ export default function Home() {
 
       {/* FOOTER */}
       <footer className="text-center pb-10 text-zinc-500">
-        © {new Date().getFullYear()} ZoopAI — Tecnologia em Inteligência Artificial
+        © {new Date().getFullYear()} ZoopAI — Inteligência Artificial Empresarial
       </footer>
 
     </main>
