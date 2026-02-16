@@ -3,54 +3,40 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
+
     const { name, email, password } = body;
 
-    // Validação básica
-    if (!name || !email || !password) {
-      return NextResponse.json(
-        { error: "Preencha todos os campos" },
-        { status: 400 }
-      );
-    }
-
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-
-    const res = await fetch(`${supabaseUrl}/rest/v1/users`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "apikey": supabaseKey,
-        "Authorization": `Bearer ${supabaseKey}`,
-        "Prefer": "return=minimal"
-      },
-      body: JSON.stringify({
-        name,
-        email,
-        password
-      }),
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/users`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+          "Authorization": `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!}`,
+          "Prefer": "return=minimal"
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password
+        })
+      }
+    );
 
     if (!res.ok) {
-      const errorText = await res.text();
-      console.error("Erro Supabase:", errorText);
-
-      return NextResponse.json(
-        { error: "Erro ao criar conta" },
-        { status: 500 }
-      );
+      const text = await res.text();
+      console.error(text);
+      throw new Error("Erro ao inserir no banco");
     }
 
-    return NextResponse.json({
-      success: true,
-      message: "Conta criada com sucesso"
-    });
+    return NextResponse.json({ success: true });
 
   } catch (error) {
-    console.error("Erro geral:", error);
+    console.error(error);
 
     return NextResponse.json(
-      { error: "Erro interno do servidor" },
+      { error: "Erro ao criar conta" },
       { status: 500 }
     );
   }
