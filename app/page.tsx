@@ -3,129 +3,129 @@ export default function Home() {
     <main className="flex flex-col items-center justify-center text-center px-6">
 
       {/* HERO */}
-      <section className="max-w-5xl mt-24">
+      <section className="max-w-5xl mt-32">
 
-        <h1 className="text-5xl md:text-7xl font-bold mb-6">
-          Agentes de Inteligência Artificial
+        <div className="inline-block mb-4 px-4 py-1 bg-blue-600/10 border border-blue-500/20 rounded-full text-blue-400 text-sm">
+          Plataforma de Agentes de Inteligência Artificial
+        </div>
+
+        <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+
+          Automatize seu atendimento com{" "}
+
+          <span className="text-blue-500">
+            Agentes de IA
+          </span>
+
         </h1>
 
-        <p className="text-xl text-zinc-400 mb-10">
-          Automatize atendimento, aumente vendas e escale sua empresa com agentes IA profissionais.
+        <p className="text-xl text-zinc-400 mb-10 max-w-3xl mx-auto">
+          A ZoopAI cria agentes inteligentes que atendem clientes, respondem mensagens e aumentam suas vendas automaticamente, 24 horas por dia.
         </p>
 
-<a
-  href="https://wa.me/5567998560850?text=Olá,%20quero%20automatizar%20meu%20atendimento%20com%20um%20Agente%20de%20IA%20da%20ZoopAI."
-  target="_blank"
-  rel="noopener noreferrer"
-  className="bg-green-500 hover:bg-green-600 text-black font-semibold px-8 py-4 rounded-lg text-lg transition"
->
-  Falar com especialista
-</a>
+        <div className="flex flex-col md:flex-row gap-4 justify-center">
 
+          <a
+            href="https://wa.me/5567998560850?text=Olá,%20quero%20automatizar%20meu%20atendimento%20com%20um%20Agente%20de%20IA%20da%20ZoopAI."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-4 rounded-lg text-lg transition"
+          >
+            Falar com especialista
+          </a>
 
+          <a
+            href="#solucoes"
+            className="border border-white/20 hover:border-white/40 text-white font-semibold px-8 py-4 rounded-lg text-lg transition"
+          >
+            Ver soluções
+          </a>
+
+        </div>
 
       </section>
 
 
-      {/* COMO FUNCIONA */}
-      <section className="mt-32 max-w-6xl w-full">
+      {/* BENEFÍCIOS */}
+      <section className="mt-32 grid md:grid-cols-3 gap-8 max-w-6xl">
 
-        <h2 className="text-3xl font-bold mb-12">
-          Como funciona
-        </h2>
+        <div className="bg-zinc-900/50 border border-white/10 p-6 rounded-xl">
+          <h3 className="text-xl font-semibold mb-2 text-blue-400">
+            Atendimento 24/7
+          </h3>
 
-        <div className="grid md:grid-cols-3 gap-8">
+          <p className="text-zinc-400">
+            Seu agente responde clientes automaticamente a qualquer hora.
+          </p>
+        </div>
 
-          <div className="bg-zinc-900 p-6 rounded-xl border border-zinc-800">
-            <h3 className="text-xl font-semibold mb-3 text-blue-400">
-              1. Cliente entra em contato
-            </h3>
 
-            <p className="text-zinc-400">
-              Seu cliente envia mensagem pelo WhatsApp, site ou Instagram.
-            </p>
-          </div>
+        <div className="bg-zinc-900/50 border border-white/10 p-6 rounded-xl">
+          <h3 className="text-xl font-semibold mb-2 text-blue-400">
+            Aumente suas vendas
+          </h3>
 
-          <div className="bg-zinc-900 p-6 rounded-xl border border-zinc-800">
-            <h3 className="text-xl font-semibold mb-3 text-blue-400">
-              2. IA responde automaticamente
-            </h3>
+          <p className="text-zinc-400">
+            Nunca perca um cliente por demora no atendimento.
+          </p>
+        </div>
 
-            <p className="text-zinc-400">
-              O agente IA responde instantaneamente e atende o cliente.
-            </p>
-          </div>
 
-          <div className="bg-zinc-900 p-6 rounded-xl border border-zinc-800">
-            <h3 className="text-xl font-semibold mb-3 text-blue-400">
-              3. Você vende mais
-            </h3>
+        <div className="bg-zinc-900/50 border border-white/10 p-6 rounded-xl">
+          <h3 className="text-xl font-semibold mb-2 text-blue-400">
+            Automatização completa
+          </h3>
 
-            <p className="text-zinc-400">
-              Mais conversões, menos trabalho manual e atendimento 24h.
-            </p>
-          </div>
-
+          <p className="text-zinc-400">
+            Automatize WhatsApp, site e redes sociais com IA.
+          </p>
         </div>
 
       </section>
 
 
       {/* SOLUÇÕES */}
-      <section className="mt-32 max-w-6xl w-full mb-32">
+      <section id="solucoes" className="mt-32 mb-32 max-w-6xl w-full">
 
-        <h2 className="text-3xl font-bold mb-12">
+        <h2 className="text-4xl font-bold mb-12">
           Soluções ZoopAI
         </h2>
 
         <div className="grid md:grid-cols-3 gap-8">
 
-          <div className="bg-zinc-900 p-6 rounded-xl border border-zinc-800 hover:border-blue-500 transition">
+          <div className="bg-zinc-900/50 border border-white/10 p-6 rounded-xl">
             <h3 className="text-xl font-semibold mb-3 text-blue-400">
-              Atendimento Automático
+              Agente para WhatsApp
             </h3>
 
             <p className="text-zinc-400">
-              Atendimento 24 horas automático no WhatsApp, site e Instagram.
+              Responde clientes automaticamente no WhatsApp.
             </p>
           </div>
 
-          <div className="bg-zinc-900 p-6 rounded-xl border border-zinc-800 hover:border-blue-500 transition">
+
+          <div className="bg-zinc-900/50 border border-white/10 p-6 rounded-xl">
             <h3 className="text-xl font-semibold mb-3 text-blue-400">
               Agente de Vendas
             </h3>
 
             <p className="text-zinc-400">
-              Converta visitantes em clientes automaticamente com IA.
+              Converte visitantes em clientes automaticamente.
             </p>
           </div>
 
-          <div className="bg-zinc-900 p-6 rounded-xl border border-zinc-800 hover:border-blue-500 transition">
+
+          <div className="bg-zinc-900/50 border border-white/10 p-6 rounded-xl">
             <h3 className="text-xl font-semibold mb-3 text-blue-400">
               Automação Empresarial
             </h3>
 
             <p className="text-zinc-400">
-              Automatize processos internos e aumente produtividade.
+              Automatize processos e aumente produtividade.
             </p>
           </div>
 
         </div>
-
-      </section>
-
-
-      {/* CTA FINAL */}
-      <section className="mb-32">
-
-        <a
-          href="https://wa.me/5567998560850"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-green-500 hover:bg-green-600 text-black font-semibold px-10 py-5 rounded-lg text-xl transition"
-        >
-          Falar no WhatsApp agora
-        </a>
 
       </section>
 
