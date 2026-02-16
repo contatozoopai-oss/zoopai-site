@@ -1,26 +1,157 @@
 @import "tailwindcss";
 
+/* =========================
+   CORES BASE
+========================= */
+
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0f172a;
+  --primary: #2563eb;
+  --primary-glow: rgba(37, 99, 235, 0.6);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
+
+/* Dark mode preparado para futuro */
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #020617;
+    --foreground: #ffffff;
   }
 }
+
+/* =========================
+   BODY BASE
+========================= */
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* =========================
+   ANIMAÇÃO ROBÔ FLUTUANDO
+========================= */
+
+@keyframes float {
+
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* =========================
+   GLOW AZUL FUTURISTA
+========================= */
+
+@keyframes glow {
+
+  0% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 0.4;
+  }
+
+}
+
+.animate-glow {
+  animation: glow 3s ease-in-out infinite;
+}
+
+/* =========================
+   BOTÕES FUTURISTAS
+========================= */
+
+.btn-primary {
+
+  background: linear-gradient(
+    135deg,
+    #2563eb,
+    #3b82f6
+  );
+
+  color: white;
+
+  box-shadow:
+    0 0 20px rgba(37, 99, 235, 0.4);
+
+  transition: all 0.3s ease;
+
+}
+
+.btn-primary:hover {
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 0 30px rgba(37, 99, 235, 0.7);
+
+}
+
+/* =========================
+   TEXTO GRADIENT FUTURISTA
+========================= */
+
+.text-gradient {
+
+  background: linear-gradient(
+    90deg,
+    #2563eb,
+    #60a5fa
+  );
+
+  -webkit-background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+
+}
+
+/* =========================
+   CARD FUTURISTA
+========================= */
+
+.card-futuristic {
+
+  background: white;
+
+  border-radius: 16px;
+
+  border: 1px solid rgba(37, 99, 235, 0.15);
+
+  transition: all 0.3s ease;
+
+}
+
+.card-futuristic:hover {
+
+  transform: translateY(-5px);
+
+  box-shadow:
+    0 0 30px rgba(37, 99, 235, 0.15);
+
 }
