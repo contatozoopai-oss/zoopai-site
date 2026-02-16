@@ -1,81 +1,34 @@
-"use client";
-
-import { useEffect, useState } from "react";
-
 export default function Home() {
-
-  const [mouse, setMouse] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-
-    const move = (e: MouseEvent) => {
-
-      setMouse({
-        x: e.clientX,
-        y: e.clientY,
-      });
-
-    };
-
-    window.addEventListener("mousemove", move);
-
-    return () => window.removeEventListener("mousemove", move);
-
-  }, []);
-
-
-
   return (
-
-    <main className="relative overflow-hidden bg-futuristic">
-
-      {/* GLOW REATIVO AO MOUSE */}
-      <div
-        className="pointer-events-none fixed w-[600px] h-[600px] rounded-full blur-[140px] opacity-20 bg-blue-500 transition-all duration-300"
-        style={{
-          left: mouse.x - 300,
-          top: mouse.y - 300,
-        }}
-      ></div>
-
-
+    <main>
 
       {/* HERO */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden text-white">
 
-        {/* PARTÍCULAS */}
-        <div className="absolute inset-0 pointer-events-none">
+        {/* FUNDO AZUL FUTURISTA */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#020617] via-[#020c1f] to-[#020617]"></div>
 
-          {[...Array(20)].map((_, i) => (
-
-            <div
-              key={i}
-              className="particle"
-              style={{
-                left: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 20}s`,
-              }}
-            />
-
-          ))}
-
+        {/* GLOW CENTRAL */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+                        w-[900px] h-[900px]
+                        bg-blue-600 opacity-20 blur-[180px]
+                        rounded-full animate-glow">
         </div>
 
-
-
-        {/* CONTEÚDO */}
-        <div className="max-w-7xl mx-auto px-6 py-28 grid md:grid-cols-2 gap-12 items-center relative z-10">
+        {/* CONTAINER */}
+        <div className="relative z-10 max-w-7xl mx-auto px-6 py-24 grid md:grid-cols-2 gap-12 items-center">
 
           {/* TEXTO */}
           <div>
 
-            <div className="inline-block mb-6 px-4 py-1 rounded-full bg-blue-100 text-blue-600 text-sm font-medium animate-glow">
+            <div className="inline-block mb-6 px-4 py-1 rounded-full
+                            bg-blue-500/10 border border-blue-500/20
+                            text-blue-400 text-sm font-medium">
               Plataforma de Inteligência Artificial
             </div>
 
 
-
-            <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6">
+            <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-6">
 
               Automatize seu atendimento com{" "}
 
@@ -86,8 +39,7 @@ export default function Home() {
             </h1>
 
 
-
-            <p className="text-lg text-zinc-600 mb-10 max-w-xl">
+            <p className="text-lg text-blue-100/80 mb-8 max-w-xl">
 
               A ZoopAI cria agentes inteligentes que atendem clientes,
               respondem mensagens e aumentam suas vendas automaticamente,
@@ -96,23 +48,24 @@ export default function Home() {
             </p>
 
 
-
             <div className="flex gap-4 flex-wrap">
 
               <a
                 href="https://wa.me/5567998560850?text=Olá,%20quero%20automatizar%20meu%20atendimento%20com%20um%20Agente%20de%20IA%20da%20ZoopAI."
                 target="_blank"
-                className="btn-primary px-8 py-4 text-lg"
+                className="btn-primary px-8 py-4 rounded-lg text-lg font-semibold"
               >
                 Falar com especialista
               </a>
 
 
-
               <a
                 href="#solucoes"
-                className="btn-secondary px-8 py-4 text-lg"
-              >
+                className="px-8 py-4 rounded-lg text-lg font-semibold
+                           border border-blue-500/30
+                           hover:border-blue-400
+                           hover:bg-blue-500/10
+                           transition">
                 Ver soluções
               </a>
 
@@ -121,27 +74,23 @@ export default function Home() {
           </div>
 
 
-
-          {/* ROBÔ */}
+          {/* ROBO */}
           <div className="flex justify-center relative">
 
-            {/* GLOW */}
-            <div className="absolute w-[450px] h-[450px] bg-blue-500 opacity-20 blur-[120px] rounded-full animate-glow"></div>
-
+            {/* GLOW DO ROBO */}
+            <div className="absolute
+                            w-[500px] h-[500px]
+                            bg-blue-500 opacity-30 blur-[160px]
+                            rounded-full animate-glow">
+            </div>
 
 
             <img
               src="/robot.png"
               alt="Robô ZoopAI"
-              className="
-                relative
-                w-[440px]
-                robot-glow
-                animate-float
-                transition-all
-                duration-500
-                hover:scale-105
-              "
+              className="relative z-10 w-[420px]
+                         animate-float
+                         drop-shadow-[0_0_80px_rgba(37,99,235,0.8)]"
             />
 
           </div>
@@ -155,60 +104,75 @@ export default function Home() {
       {/* SOLUÇÕES */}
       <section
         id="solucoes"
-        className="py-24 px-6"
+        className="bg-[#020617] text-white py-24 px-6"
       >
 
         <div className="max-w-6xl mx-auto">
 
-          <h2 className="text-4xl font-bold mb-16 text-center">
+          <h2 className="text-3xl font-bold mb-12 text-center">
 
             Soluções ZoopAI
 
           </h2>
 
 
-
           <div className="grid md:grid-cols-3 gap-8">
 
-            <div className="card-futuristic p-8">
+            {/* CARD */}
+            <div className="card-futuristic p-6 bg-blue-950/30 backdrop-blur">
 
-              <h3 className="text-xl font-semibold mb-3 text-blue-600">
+              <h3 className="text-xl font-semibold mb-3 text-blue-400">
+
                 Atendimento Automático
+
               </h3>
 
-              <p className="text-zinc-600">
-                Atendimento 24h automático no WhatsApp, site e Instagram.
+              <p className="text-blue-100/70">
+
+                Atendimento 24 horas automático no WhatsApp, site e Instagram.
+
               </p>
 
             </div>
 
 
 
-            <div className="card-futuristic p-8">
+            {/* CARD */}
+            <div className="card-futuristic p-6 bg-blue-950/30 backdrop-blur">
 
-              <h3 className="text-xl font-semibold mb-3 text-blue-600">
+              <h3 className="text-xl font-semibold mb-3 text-blue-400">
+
                 Agente de Vendas
+
               </h3>
 
-              <p className="text-zinc-600">
+              <p className="text-blue-100/70">
+
                 Converta visitantes em clientes automaticamente com IA.
+
               </p>
 
             </div>
 
 
 
-            <div className="card-futuristic p-8">
+            {/* CARD */}
+            <div className="card-futuristic p-6 bg-blue-950/30 backdrop-blur">
 
-              <h3 className="text-xl font-semibold mb-3 text-blue-600">
+              <h3 className="text-xl font-semibold mb-3 text-blue-400">
+
                 Automação Empresarial
+
               </h3>
 
-              <p className="text-zinc-600">
-                Automatize processos e aumente produtividade.
+              <p className="text-blue-100/70">
+
+                Automatize processos internos e aumente produtividade.
+
               </p>
 
             </div>
+
 
           </div>
 
@@ -219,7 +183,5 @@ export default function Home() {
 
 
     </main>
-
   );
-
 }
