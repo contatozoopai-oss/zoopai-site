@@ -56,12 +56,11 @@ export default function Home() {
           <div className="flex justify-center relative">
 
             <div className="absolute w-[400px] h-[400px] bg-blue-500 opacity-20 blur-[100px] rounded-full"></div>
-
-            <img
-              src="/robot.png"
-              alt="Robô ZoopAI"
-              className="relative z-10 w-[420px] drop-shadow-[0_0_40px_rgba(59,130,246,0.6)]"
-            />
+<img
+  src="/robot.png"
+  alt="Robô ZoopAI"
+  className="relative z-10 w-[420px] drop-shadow-[0_0_60px_rgba(59,130,246,0.8)] animate-float"
+/>
 
           </div>
 
