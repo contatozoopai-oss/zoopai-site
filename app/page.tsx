@@ -10,13 +10,10 @@ export default function Home() {
         </div>
 
         <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-
           Automatize seu atendimento com{" "}
-
           <span className="text-blue-500">
             Agentes de IA
           </span>
-
         </h1>
 
         <p className="text-xl text-zinc-400 mb-10 max-w-3xl mx-auto">
@@ -53,29 +50,24 @@ export default function Home() {
           <h3 className="text-xl font-semibold mb-2 text-blue-400">
             Atendimento 24/7
           </h3>
-
           <p className="text-zinc-400">
             Seu agente responde clientes automaticamente a qualquer hora.
           </p>
         </div>
 
-
         <div className="bg-zinc-900/50 border border-white/10 p-6 rounded-xl">
           <h3 className="text-xl font-semibold mb-2 text-blue-400">
             Aumente suas vendas
           </h3>
-
           <p className="text-zinc-400">
             Nunca perca um cliente por demora no atendimento.
           </p>
         </div>
 
-
         <div className="bg-zinc-900/50 border border-white/10 p-6 rounded-xl">
           <h3 className="text-xl font-semibold mb-2 text-blue-400">
             Automatização completa
           </h3>
-
           <p className="text-zinc-400">
             Automatize WhatsApp, site e redes sociais com IA.
           </p>
@@ -97,29 +89,24 @@ export default function Home() {
             <h3 className="text-xl font-semibold mb-3 text-blue-400">
               Agente para WhatsApp
             </h3>
-
             <p className="text-zinc-400">
               Responde clientes automaticamente no WhatsApp.
             </p>
           </div>
 
-
           <div className="bg-zinc-900/50 border border-white/10 p-6 rounded-xl">
             <h3 className="text-xl font-semibold mb-3 text-blue-400">
               Agente de Vendas
             </h3>
-
             <p className="text-zinc-400">
               Converte visitantes em clientes automaticamente.
             </p>
           </div>
 
-
           <div className="bg-zinc-900/50 border border-white/10 p-6 rounded-xl">
             <h3 className="text-xl font-semibold mb-3 text-blue-400">
               Automação Empresarial
             </h3>
-
             <p className="text-zinc-400">
               Automatize processos e aumente produtividade.
             </p>
@@ -128,6 +115,32 @@ export default function Home() {
         </div>
 
       </section>
+
+
+      {/* FOOTER */}
+      <footer className="border-t border-white/10 pt-10 pb-6 text-center text-zinc-500 w-full max-w-6xl">
+
+        <div className="mb-4">
+          © 2026 ZoopAI. Todos os direitos reservados.
+        </div>
+
+        <div className="flex justify-center gap-6 text-sm">
+
+          <a
+            href="https://wa.me/5567998560850"
+            target="_blank"
+            className="hover:text-white transition"
+          >
+            WhatsApp
+          </a>
+
+          <span>Campo Grande - MS</span>
+
+          <span>Brasil</span>
+
+        </div>
+
+      </footer>
 
     </main>
   );
