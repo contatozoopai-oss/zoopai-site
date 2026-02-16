@@ -13,14 +13,15 @@ export default function Home() {
           Automatize atendimento, aumente vendas e escale sua empresa com agentes IA profissionais.
         </p>
 
-        <a
-  href="https://wa.me/5567998560850?text=Olá,%20vim%20pelo%20site%20da%20ZoopAI%20e%20quero%20saber%20mais%20sobre%20os%20Agentes%20de%20Inteligência%20Artificial."
+<a
+  href="https://wa.me/5567998560850?text=Olá,%20quero%20automatizar%20meu%20atendimento%20com%20um%20Agente%20de%20IA%20da%20ZoopAI."
   target="_blank"
   rel="noopener noreferrer"
   className="bg-green-500 hover:bg-green-600 text-black font-semibold px-8 py-4 rounded-lg text-lg transition"
 >
   Falar com especialista
 </a>
+
 
 
       </section>
