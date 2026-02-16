@@ -3,32 +3,54 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-
     const { name, email, password } = body;
 
-    const query = `
-      INSERT INTO users (name, email, password)
-      VALUES ('${name}', '${email}', '${password}')
-    `;
+    // Validação básica
+    if (!name || !email || !password) {
+      return NextResponse.json(
+        { error: "Preencha todos os campos" },
+        { status: 400 }
+      );
+    }
 
-    const res = await fetch(process.env.DATABASE_URL!, {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+
+    const res = await fetch(`${supabaseUrl}/rest/v1/users`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/sql",
+        "Content-Type": "application/json",
+        "apikey": supabaseKey,
+        "Authorization": `Bearer ${supabaseKey}`,
+        "Prefer": "return=minimal"
       },
-      body: query,
+      body: JSON.stringify({
+        name,
+        email,
+        password
+      }),
     });
 
     if (!res.ok) {
-      throw new Error("Erro ao inserir no banco");
+      const errorText = await res.text();
+      console.error("Erro Supabase:", errorText);
+
+      return NextResponse.json(
+        { error: "Erro ao criar conta" },
+        { status: 500 }
+      );
     }
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({
+      success: true,
+      message: "Conta criada com sucesso"
+    });
 
   } catch (error) {
-    console.error(error);
+    console.error("Erro geral:", error);
+
     return NextResponse.json(
-      { error: "Erro ao criar conta" },
+      { error: "Erro interno do servidor" },
       { status: 500 }
     );
   }
