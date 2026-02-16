@@ -14,8 +14,9 @@ export default function Home() {
         </p>
 
         <a
-          href="https://wa.me/SEUNUMERO"
+          href="https://wa.me/5567998560850"
           target="_blank"
+          rel="noopener noreferrer"
           className="bg-green-500 hover:bg-green-600 text-black font-semibold px-8 py-4 rounded-lg text-lg transition"
         >
           Falar com especialista
@@ -23,8 +24,53 @@ export default function Home() {
 
       </section>
 
-      {/* SOLUÇÕES */}
+
+      {/* COMO FUNCIONA */}
       <section className="mt-32 max-w-6xl w-full">
+
+        <h2 className="text-3xl font-bold mb-12">
+          Como funciona
+        </h2>
+
+        <div className="grid md:grid-cols-3 gap-8">
+
+          <div className="bg-zinc-900 p-6 rounded-xl border border-zinc-800">
+            <h3 className="text-xl font-semibold mb-3 text-blue-400">
+              1. Cliente entra em contato
+            </h3>
+
+            <p className="text-zinc-400">
+              Seu cliente envia mensagem pelo WhatsApp, site ou Instagram.
+            </p>
+          </div>
+
+          <div className="bg-zinc-900 p-6 rounded-xl border border-zinc-800">
+            <h3 className="text-xl font-semibold mb-3 text-blue-400">
+              2. IA responde automaticamente
+            </h3>
+
+            <p className="text-zinc-400">
+              O agente IA responde instantaneamente e atende o cliente.
+            </p>
+          </div>
+
+          <div className="bg-zinc-900 p-6 rounded-xl border border-zinc-800">
+            <h3 className="text-xl font-semibold mb-3 text-blue-400">
+              3. Você vende mais
+            </h3>
+
+            <p className="text-zinc-400">
+              Mais conversões, menos trabalho manual e atendimento 24h.
+            </p>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* SOLUÇÕES */}
+      <section className="mt-32 max-w-6xl w-full mb-32">
 
         <h2 className="text-3xl font-bold mb-12">
           Soluções ZoopAI
@@ -32,7 +78,6 @@ export default function Home() {
 
         <div className="grid md:grid-cols-3 gap-8">
 
-          {/* Card 1 */}
           <div className="bg-zinc-900 p-6 rounded-xl border border-zinc-800 hover:border-blue-500 transition">
             <h3 className="text-xl font-semibold mb-3 text-blue-400">
               Atendimento Automático
@@ -43,7 +88,6 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Card 2 */}
           <div className="bg-zinc-900 p-6 rounded-xl border border-zinc-800 hover:border-blue-500 transition">
             <h3 className="text-xl font-semibold mb-3 text-blue-400">
               Agente de Vendas
@@ -54,7 +98,6 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Card 3 */}
           <div className="bg-zinc-900 p-6 rounded-xl border border-zinc-800 hover:border-blue-500 transition">
             <h3 className="text-xl font-semibold mb-3 text-blue-400">
               Automação Empresarial
@@ -66,6 +109,21 @@ export default function Home() {
           </div>
 
         </div>
+
+      </section>
+
+
+      {/* CTA FINAL */}
+      <section className="mb-32">
+
+        <a
+          href="https://wa.me/5567998560850"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-green-500 hover:bg-green-600 text-black font-semibold px-10 py-5 rounded-lg text-xl transition"
+        >
+          Falar no WhatsApp agora
+        </a>
 
       </section>
 
