@@ -1,42 +1,62 @@
 @import "tailwindcss";
 
 /* =========================
-   CORES BASE
+   VARIÁVEIS BASE
 ========================= */
 
 :root {
+
   --background: #ffffff;
-  --foreground: #0f172a;
+  --foreground: #020617;
+
   --primary: #2563eb;
+  --primary-light: #3b82f6;
+
   --primary-glow: rgba(37, 99, 235, 0.6);
+  --primary-glow-strong: rgba(37, 99, 235, 0.9);
+
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-}
 
-/* Dark mode preparado para futuro */
+/* DARK MODE FUTURO */
 
 @media (prefers-color-scheme: dark) {
+
   :root {
+
     --background: #020617;
     --foreground: #ffffff;
+
   }
+
 }
 
+
 /* =========================
-   BODY BASE
+   BODY
 ========================= */
 
 body {
+
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+
+  font-family:
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+
+  overflow-x: hidden;
+
 }
 
+
 /* =========================
-   ANIMAÇÃO ROBÔ FLUTUANDO
+   ANIMAÇÃO FLOAT ROBÔ
 ========================= */
 
 @keyframes float {
@@ -46,7 +66,7 @@ body {
   }
 
   50% {
-    transform: translateY(-15px);
+    transform: translateY(-20px);
   }
 
   100% {
@@ -56,49 +76,106 @@ body {
 }
 
 .animate-float {
-  animation: float 4s ease-in-out infinite;
+
+  animation: float 6s ease-in-out infinite;
+
 }
 
+
+
 /* =========================
-   GLOW AZUL FUTURISTA
+   GLOW PULSANDO
 ========================= */
 
 @keyframes glow {
 
   0% {
-    opacity: 0.4;
+    opacity: 0.3;
+    transform: scale(1);
   }
 
   50% {
-    opacity: 0.8;
+    opacity: 0.7;
+    transform: scale(1.05);
   }
 
   100% {
-    opacity: 0.4;
+    opacity: 0.3;
+    transform: scale(1);
   }
 
 }
 
 .animate-glow {
-  animation: glow 3s ease-in-out infinite;
+
+  animation: glow 4s ease-in-out infinite;
+
 }
 
+
+
 /* =========================
-   BOTÕES FUTURISTAS
+   PARTÍCULAS FUNDO
+========================= */
+
+@keyframes particles {
+
+  0% {
+    transform: translateY(0px);
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-800px);
+    opacity: 0;
+  }
+
+}
+
+.particle {
+
+  position: absolute;
+
+  width: 4px;
+  height: 4px;
+
+  background: var(--primary);
+
+  border-radius: 50%;
+
+  opacity: 0.3;
+
+  animation: particles 20s linear infinite;
+
+}
+
+
+
+/* =========================
+   BOTÃO FUTURISTA
 ========================= */
 
 .btn-primary {
 
-  background: linear-gradient(
-    135deg,
-    #2563eb,
-    #3b82f6
-  );
+  background:
+    linear-gradient(
+      135deg,
+      var(--primary),
+      var(--primary-light)
+    );
 
   color: white;
 
+  border-radius: 10px;
+
+  font-weight: 600;
+
   box-shadow:
-    0 0 20px rgba(37, 99, 235, 0.4);
+    0 0 20px var(--primary-glow);
 
   transition: all 0.3s ease;
 
@@ -106,30 +183,62 @@ body {
 
 .btn-primary:hover {
 
-  transform: translateY(-2px);
+  transform: translateY(-3px);
 
   box-shadow:
-    0 0 30px rgba(37, 99, 235, 0.7);
+    0 0 35px var(--primary-glow-strong);
 
 }
 
+
+
 /* =========================
-   TEXTO GRADIENT FUTURISTA
+   BOTÃO SECUNDÁRIO
+========================= */
+
+.btn-secondary {
+
+  border: 1px solid var(--primary);
+
+  color: var(--primary);
+
+  border-radius: 10px;
+
+  transition: all 0.3s ease;
+
+}
+
+.btn-secondary:hover {
+
+  background: var(--primary);
+  color: white;
+
+  box-shadow:
+    0 0 20px var(--primary-glow);
+
+}
+
+
+
+/* =========================
+   TEXTO GRADIENT
 ========================= */
 
 .text-gradient {
 
-  background: linear-gradient(
-    90deg,
-    #2563eb,
-    #60a5fa
-  );
+  background:
+    linear-gradient(
+      90deg,
+      var(--primary),
+      var(--primary-light)
+    );
 
   -webkit-background-clip: text;
-
   -webkit-text-fill-color: transparent;
 
 }
+
+
 
 /* =========================
    CARD FUTURISTA
@@ -141,7 +250,8 @@ body {
 
   border-radius: 16px;
 
-  border: 1px solid rgba(37, 99, 235, 0.15);
+  border:
+    1px solid rgba(37, 99, 235, 0.15);
 
   transition: all 0.3s ease;
 
@@ -149,9 +259,71 @@ body {
 
 .card-futuristic:hover {
 
-  transform: translateY(-5px);
+  transform: translateY(-6px);
 
   box-shadow:
-    0 0 30px rgba(37, 99, 235, 0.15);
+    0 0 35px rgba(37, 99, 235, 0.2);
+
+}
+
+
+
+/* =========================
+   ROBÔ GLOW FORTE
+========================= */
+
+.robot-glow {
+
+  filter:
+    drop-shadow(0 0 20px var(--primary-glow))
+    drop-shadow(0 0 40px var(--primary-glow))
+    drop-shadow(0 0 60px var(--primary-glow));
+
+}
+
+
+
+/* =========================
+   BACKGROUND FUTURISTA
+========================= */
+
+.bg-futuristic {
+
+  background:
+    radial-gradient(
+      circle at 50% 30%,
+      rgba(37, 99, 235, 0.08),
+      transparent 60%
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(37, 99, 235, 0.06),
+      transparent 60%
+    );
+
+}
+
+
+
+/* =========================
+   SCROLL SUAVE
+========================= */
+
+html {
+
+  scroll-behavior: smooth;
+
+}
+
+
+
+/* =========================
+   SELEÇÃO TEXTO FUTURISTA
+========================= */
+
+::selection {
+
+  background: var(--primary);
+  color: white;
 
 }
