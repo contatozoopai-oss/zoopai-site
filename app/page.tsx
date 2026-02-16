@@ -6,11 +6,15 @@ export default function Home() {
       {/* HERO */}
       <section className="relative overflow-hidden">
 
-        {/* FUNDO GRADIENT */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#020617] via-[#0a1a3a] to-[#020617]"></div>
+
+        {/* FUNDO */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#020617] via-[#071a3a] to-[#020617]"></div>
+
 
         {/* GLOW */}
         <div className="absolute top-[-200px] left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-blue-600 opacity-20 blur-[180px] rounded-full animate-glow"></div>
+
+
 
         <div className="max-w-7xl mx-auto px-6 py-24 grid md:grid-cols-2 gap-12 items-center relative z-10">
 
@@ -18,12 +22,13 @@ export default function Home() {
           {/* TEXTO */}
           <div>
 
-            <div className="inline-block mb-6 px-4 py-1 rounded-full bg-blue-500/10 text-blue-400 text-sm font-medium border border-blue-500/20">
+
+            <div className="inline-block mb-6 px-4 py-1 rounded-full bg-blue-500/10 text-blue-400 text-sm border border-blue-500/20">
               Plataforma de Inteligência Artificial
             </div>
 
 
-            <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-6">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6">
 
               Automatize seu atendimento com{" "}
 
@@ -43,6 +48,7 @@ export default function Home() {
             </p>
 
 
+
             <div className="flex gap-4 flex-wrap">
 
 
@@ -57,13 +63,14 @@ export default function Home() {
 
               <a
                 href="#solucoes"
-                className="border border-blue-500 text-blue-400 hover:bg-blue-500/10 px-8 py-4 rounded-lg font-semibold text-lg transition"
+                className="border border-blue-500 text-blue-400 hover:bg-blue-500/10 px-8 py-4 rounded-lg font-semibold"
               >
                 Ver soluções
               </a>
 
 
             </div>
+
 
           </div>
 
@@ -72,13 +79,16 @@ export default function Home() {
           {/* ROBO */}
           <div className="flex justify-center relative">
 
-            <div className="absolute w-[500px] h-[500px] bg-blue-500 opacity-20 blur-[120px] rounded-full animate-glow"></div>
+
+            <div className="absolute w-[500px] h-[500px] bg-blue-600 opacity-20 blur-[120px] rounded-full animate-glow"></div>
+
 
             <img
               src="/robot.png"
               alt="Robô ZoopAI"
               className="relative z-10 w-[420px] animate-float drop-shadow-[0_0_80px_rgba(37,99,235,0.8)]"
             />
+
 
           </div>
 
@@ -92,12 +102,11 @@ export default function Home() {
 
 
       {/* SOLUÇÕES */}
-      <section
-        id="solucoes"
-        className="relative py-24 px-6"
-      >
+      <section id="solucoes" className="py-24 px-6">
+
 
         <div className="max-w-6xl mx-auto">
+
 
           <h2 className="text-3xl font-bold text-center mb-16">
 
@@ -111,52 +120,63 @@ export default function Home() {
 
 
             {/* CARD */}
-            <div className="card-futuristic bg-white/5 backdrop-blur p-6">
+            <div className="bg-[#0b1c3d] border border-blue-500/20 rounded-xl p-6 hover:border-blue-500 transition hover:shadow-[0_0_30px_rgba(37,99,235,0.3)]">
+
 
               <h3 className="text-xl font-semibold mb-3 text-blue-400">
                 Atendimento Automático
               </h3>
 
+
               <p className="text-blue-100/70">
-                Atendimento 24 horas automático no WhatsApp, site e Instagram.
+                Atendimento automático 24 horas no WhatsApp, site e Instagram.
               </p>
+
 
             </div>
 
 
 
             {/* CARD */}
-            <div className="card-futuristic bg-white/5 backdrop-blur p-6">
+            <div className="bg-[#0b1c3d] border border-blue-500/20 rounded-xl p-6 hover:border-blue-500 transition hover:shadow-[0_0_30px_rgba(37,99,235,0.3)]">
+
 
               <h3 className="text-xl font-semibold mb-3 text-blue-400">
                 Agente de Vendas
               </h3>
 
+
               <p className="text-blue-100/70">
-                Convertendo visitantes automaticamente em clientes com IA.
+                Converte visitantes automaticamente em clientes usando IA.
               </p>
+
 
             </div>
 
 
 
             {/* CARD */}
-            <div className="card-futuristic bg-white/5 backdrop-blur p-6">
+            <div className="bg-[#0b1c3d] border border-blue-500/20 rounded-xl p-6 hover:border-blue-500 transition hover:shadow-[0_0_30px_rgba(37,99,235,0.3)]">
+
 
               <h3 className="text-xl font-semibold mb-3 text-blue-400">
                 Automação Empresarial
               </h3>
 
+
               <p className="text-blue-100/70">
-                Automatize processos internos e aumente a produtividade.
+                Automatize processos internos e aumente sua produtividade.
               </p>
+
 
             </div>
 
 
           </div>
 
+
         </div>
+
 
       </section>
 
@@ -165,9 +185,11 @@ export default function Home() {
 
 
       {/* DEPOIMENTOS */}
-      <section className="relative py-24 px-6">
+      <section className="py-24 px-6">
+
 
         <div className="max-w-6xl mx-auto">
+
 
           <h2 className="text-3xl font-bold text-center mb-16">
 
@@ -180,102 +202,63 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-8">
 
 
-            <div className="card-futuristic bg-white/5 backdrop-blur p-6">
+            {[
+              {
+                nome: "Carlos Mendes",
+                cargo: "Dono de E-commerce",
+                texto:
+                  "Depois que a ZoopAI entrou no meu negócio, minhas vendas aumentaram e ganhei mais tempo livre.",
+              },
+              {
+                nome: "Fernanda Alves",
+                cargo: "Clínica Odontológica",
+                texto:
+                  "Atendimento automático perfeito. Meus clientes recebem respostas instantaneamente.",
+              },
+              {
+                nome: "Ricardo Souza",
+                cargo: "Agência de Marketing",
+                texto:
+                  "A ZoopAI revolucionou minha empresa. Tudo automatizado e eficiente.",
+              },
+              {
+                nome: "Juliana Ribeiro",
+                cargo: "Loja Online",
+                texto:
+                  "Melhor investimento que fiz. Atendimento profissional 24 horas.",
+              },
+              {
+                nome: "Rafael Martins",
+                cargo: "Empresário",
+                texto:
+                  "Parece que tenho uma equipe completa trabalhando para mim.",
+              },
+            ].map((item, index) => (
+              <div
+                key={index}
+                className="bg-[#0b1c3d] border border-blue-500/20 rounded-xl p-6 hover:border-blue-500 transition hover:shadow-[0_0_30px_rgba(37,99,235,0.3)]"
+              >
+                <p className="text-blue-100/80 mb-4">
+                  "{item.texto}"
+                </p>
 
-              <p className="text-blue-100/80 mb-4">
-                "Depois que a ZoopAI entrou no meu negócio,
-                tenho mais tempo e minhas vendas aumentaram."
-              </p>
+                <div className="text-blue-400 font-semibold">
+                  {item.nome}
+                </div>
 
-              <div className="text-blue-400 font-semibold">
-                Carlos Mendes
+                <div className="text-blue-200/60 text-sm">
+                  {item.cargo}
+                </div>
+
               </div>
-
-              <div className="text-blue-300/60 text-sm">
-                Dono de E-commerce
-              </div>
-
-            </div>
-
-
-
-            <div className="card-futuristic bg-white/5 backdrop-blur p-6">
-
-              <p className="text-blue-100/80 mb-4">
-                "Atendimento automático 24h.
-                Meus clientes recebem resposta instantânea."
-              </p>
-
-              <div className="text-blue-400 font-semibold">
-                Fernanda Alves
-              </div>
-
-              <div className="text-blue-300/60 text-sm">
-                Clínica Odontológica
-              </div>
-
-            </div>
-
-
-
-            <div className="card-futuristic bg-white/5 backdrop-blur p-6">
-
-              <p className="text-blue-100/80 mb-4">
-                "A ZoopAI revolucionou minha empresa.
-                Tudo automatizado."
-              </p>
-
-              <div className="text-blue-400 font-semibold">
-                Ricardo Souza
-              </div>
-
-              <div className="text-blue-300/60 text-sm">
-                Agência de Marketing
-              </div>
-
-            </div>
-
-
-
-            <div className="card-futuristic bg-white/5 backdrop-blur p-6">
-
-              <p className="text-blue-100/80 mb-4">
-                "Melhor investimento que fiz.
-                Atendimento profissional."
-              </p>
-
-              <div className="text-blue-400 font-semibold">
-                Juliana Ribeiro
-              </div>
-
-              <div className="text-blue-300/60 text-sm">
-                Loja Online
-              </div>
-
-            </div>
-
-
-
-            <div className="card-futuristic bg-white/5 backdrop-blur p-6">
-
-              <p className="text-blue-100/80 mb-4">
-                "Parece que tenho uma equipe 24h trabalhando."
-              </p>
-
-              <div className="text-blue-400 font-semibold">
-                Rafael Martins
-              </div>
-
-              <div className="text-blue-300/60 text-sm">
-                Empresário
-              </div>
-
-            </div>
+            ))}
 
 
           </div>
 
+
         </div>
+
 
       </section>
 
@@ -284,37 +267,29 @@ export default function Home() {
 
 
       {/* CTA FINAL */}
-      <section className="py-24 text-center relative">
-
-        <div className="absolute inset-0 bg-blue-600 opacity-10 blur-[140px]"></div>
-
-        <div className="relative z-10">
-
-          <h2 className="text-4xl font-bold mb-6">
-
-            Pronto para automatizar seu negócio?
-
-          </h2>
-
-          <p className="text-blue-100/70 mb-8">
-
-            Comece hoje com a ZoopAI.
-
-          </p>
+      <section className="py-24 text-center">
 
 
-          <a
-            href="https://wa.me/5567998560850?text=Olá,%20quero%20começar%20com%20a%20ZoopAI."
-            target="_blank"
-            className="btn-primary px-10 py-5 rounded-xl text-lg font-semibold"
-          >
-            Começar agora
-          </a>
+        <h2 className="text-4xl font-bold mb-6">
+          Pronto para automatizar seu negócio?
+        </h2>
 
-        </div>
+
+        <p className="text-blue-100/70 mb-8">
+          Comece agora com a ZoopAI.
+        </p>
+
+
+        <a
+          href="https://wa.me/5567998560850?text=Olá,%20quero%20começar%20com%20a%20ZoopAI."
+          target="_blank"
+          className="btn-primary px-10 py-5 rounded-xl text-lg font-semibold"
+        >
+          Começar agora
+        </a>
+
 
       </section>
-
 
 
     </main>
