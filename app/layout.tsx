@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import Header from "./components/Header";
 
 export const metadata: Metadata = {
-  title: "ZoopAI",
-  description: "Agentes de Inteligência Artificial para automatizar e escalar empresas.",
+  title: "ZoopAI - Agentes de Inteligência Artificial",
+  description: "Automatize seu atendimento e aumente suas vendas com IA",
 };
 
 export default function RootLayout({
@@ -13,14 +13,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-br">
       <body className="bg-black text-white">
 
+        {/* HEADER */}
         <Header />
 
-        <main className="pt-32">
-          {children}
-        </main>
+        {/* CONTEÚDO DO SITE */}
+        {children}
 
       </body>
     </html>
