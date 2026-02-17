@@ -3,80 +3,222 @@
 import { useState, useEffect } from "react";
 
 export default function RegisterPage() {
-  const [text, setText] = useState("");
-  const fullText =
-    "Olá, humano.\nEu sou a ZoopAI.\nVou criar sua identidade digital.";
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const messages = [
+    "Olá, humano.",
+    "Eu sou a ZoopAI.",
+    "Vou criar sua identidade digital."
+  ];
+
+  const [displayedText, setDisplayedText] = useState("");
+  const [messageIndex, setMessageIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
 
   useEffect(() => {
-    let i = 0;
-    const interval = setInterval(() => {
-      setText(fullText.slice(0, i));
-      i++;
-      if (i > fullText.length) clearInterval(interval);
+    if (messageIndex >= messages.length) return;
+
+    const timeout = setTimeout(() => {
+      setDisplayedText((prev) => prev + messages[messageIndex][charIndex]);
+      setCharIndex((prev) => prev + 1);
     }, 35);
 
-    return () => clearInterval(interval);
-  }, []);
+    if (charIndex >= messages[messageIndex].length) {
+      setTimeout(() => {
+        setDisplayedText((prev) => prev + "\n");
+        setMessageIndex((prev) => prev + 1);
+        setCharIndex(0);
+      }, 400);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [charIndex, messageIndex]);
+
+  async function handleRegister(e: React.FormEvent) {
+    e.preventDefault();
+
+    try {
+      setLoading(true);
+
+      const res = await fetch("/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Erro ao criar conta");
+      }
+
+      alert("Identidade criada com sucesso.");
+
+      setName("");
+      setEmail("");
+      setPassword("");
+
+    } catch (error: any) {
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
-    <div className="min-h-screen bg-[#020617] flex items-center justify-center text-white">
+    <div style={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      height: "100vh",
+      background: "radial-gradient(circle at center, #020617, #020617, #000)",
+      color: "white",
+      position: "relative",
+      overflow: "hidden"
+    }}>
 
-      <div className="grid md:grid-cols-2 gap-10 max-w-5xl w-full p-10">
+      {/* núcleo energia fundo */}
+      <div style={{
+        position: "absolute",
+        width: "600px",
+        height: "600px",
+        background: "rgba(37,99,235,0.15)",
+        borderRadius: "50%",
+        filter: "blur(120px)",
+        animation: "pulse 4s infinite"
+      }} />
 
-        {/* Lado esquerdo */}
-        <div className="flex flex-col justify-center">
+      {/* card */}
+      <form
+        onSubmit={handleRegister}
+        style={{
+          background: "rgba(17,24,39,0.8)",
+          backdropFilter: "blur(20px)",
+          padding: "35px",
+          borderRadius: "14px",
+          width: "340px",
+          border: "1px solid rgba(59,130,246,0.3)",
+          boxShadow: "0 0 40px rgba(37,99,235,0.25)",
+          position: "relative",
+          zIndex: 10
+        }}
+      >
 
-          <div className="text-blue-400 text-sm mb-2">
-            ● ZoopAI ONLINE
-          </div>
-
-          <h1 className="text-3xl font-bold whitespace-pre-line leading-relaxed">
-            {text}
-          </h1>
-
-          <div className="mt-6 text-blue-300 text-sm opacity-70">
-            Sistema de criação de identidade iniciado...
-          </div>
-
+        {/* núcleo ZoopAI */}
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "10px",
+          marginBottom: "15px"
+        }}>
+          <div style={{
+            width: "10px",
+            height: "10px",
+            background: "#3b82f6",
+            borderRadius: "50%",
+            boxShadow: "0 0 15px #3b82f6",
+            animation: "pulse 2s infinite"
+          }} />
+          <span style={{
+            fontSize: "12px",
+            color: "#3b82f6",
+            letterSpacing: "2px"
+          }}>
+            ZOOPAI CORE ACTIVE
+          </span>
         </div>
 
-        {/* Lado direito */}
-        <div className="bg-[#0f172a] border border-blue-500/30 rounded-xl p-8 shadow-2xl">
+        {/* mensagem IA */}
+        <pre style={{
+          fontSize: "14px",
+          color: "#60a5fa",
+          minHeight: "60px",
+          marginBottom: "20px",
+          fontFamily: "monospace"
+        }}>
+          {displayedText}
+        </pre>
 
-          <h2 className="text-xl mb-6 text-blue-400">
-            Criar identidade
-          </h2>
+        <input
+          type="text"
+          placeholder="Seu nome"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+          style={inputStyle}
+        />
 
-          <form className="space-y-4">
+        <input
+          type="email"
+          placeholder="Seu email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          style={inputStyle}
+        />
 
-            <input
-              placeholder="Nome"
-              className="w-full bg-[#020617] border border-blue-500/20 p-3 rounded-lg outline-none focus:border-blue-400"
-            />
+        <input
+          type="password"
+          placeholder="Senha segura"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          style={inputStyle}
+        />
 
-            <input
-              placeholder="Email"
-              className="w-full bg-[#020617] border border-blue-500/20 p-3 rounded-lg outline-none focus:border-blue-400"
-            />
+        <button
+          type="submit"
+          disabled={loading}
+          style={{
+            width: "100%",
+            marginTop: "18px",
+            padding: "12px",
+            background: "#2563eb",
+            color: "white",
+            border: "none",
+            borderRadius: "8px",
+            fontWeight: "bold",
+            boxShadow: "0 0 20px #2563eb",
+            cursor: "pointer"
+          }}
+        >
+          {loading
+            ? "Sincronizando com núcleo..."
+            : "Criar identidade"}
+        </button>
 
-            <input
-              type="password"
-              placeholder="Senha"
-              className="w-full bg-[#020617] border border-blue-500/20 p-3 rounded-lg outline-none focus:border-blue-400"
-            />
+      </form>
 
-            <button
-              className="w-full bg-blue-600 hover:bg-blue-500 transition p-3 rounded-lg font-semibold"
-            >
-              Criar identidade
-            </button>
-
-          </form>
-
-        </div>
-
-      </div>
+      <style>
+        {`
+          @keyframes pulse {
+            0% { opacity: 0.4; transform: scale(1);}
+            50% { opacity: 1; transform: scale(1.15);}
+            100% { opacity: 0.4; transform: scale(1);}
+          }
+        `}
+      </style>
 
     </div>
   );
 }
+
+const inputStyle = {
+  width: "100%",
+  marginTop: "10px",
+  padding: "12px",
+  background: "rgba(2,6,23,0.6)",
+  border: "1px solid rgba(59,130,246,0.3)",
+  borderRadius: "8px",
+  color: "white",
+  outline: "none"
+} as const;
