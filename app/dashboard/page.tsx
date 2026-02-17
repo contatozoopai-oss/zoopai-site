@@ -11,19 +11,33 @@ export default function Dashboard() {
 
   useEffect(() => {
 
-    async function loadUser() {
+    async function getUser() {
 
-      const { data } = await supabase.auth.getUser();
+      try {
 
-      if (data.user?.email) {
-        setEmail(data.user.email.toUpperCase());
-      } else {
-        setEmail("IDENTIDADE DESCONHECIDA");
+        const {
+          data: { user },
+          error,
+        } = await supabase.auth.getUser();
+
+        if (error) {
+          setEmail("ERRO DE IDENTIDADE");
+          return;
+        }
+
+        if (user?.email) {
+          setEmail(user.email.toUpperCase());
+        } else {
+          setEmail("SEM IDENTIDADE");
+        }
+
+      } catch {
+        setEmail("FALHA NA CONSCIÊNCIA");
       }
 
     }
 
-    loadUser();
+    getUser();
 
   }, []);
 
@@ -34,7 +48,9 @@ export default function Dashboard() {
         {/* topo */}
         <div className="hud-top">
 
-          <div>ZOOPAI</div>
+          <div className="logo">
+            ZOOPAI
+          </div>
 
           <div className="status">
             <div className="dot"></div>
@@ -57,17 +73,17 @@ export default function Dashboard() {
         {/* base */}
         <div className="hud-bottom">
 
-          <div>
+          <div className="block">
             <div className="label">STATUS</div>
             <div className="value">ONLINE</div>
           </div>
 
-          <div>
+          <div className="block">
             <div className="label">PROCESSAMENTO</div>
             <div className="value">NOMINAL</div>
           </div>
 
-          <div>
+          <div className="block">
             <div className="label">IDENTIDADE</div>
             <div className="value">{email}</div>
           </div>
@@ -88,19 +104,24 @@ export default function Dashboard() {
           align-items: center;
           padding: 30px;
           color: #00f0ff;
-          font-family: Arial;
+          font-family: Arial, sans-serif;
         }
 
         .hud-top {
           width: 100%;
           display: flex;
           justify-content: space-between;
+          align-items: center;
+        }
+
+        .logo {
+          letter-spacing: 4px;
         }
 
         .status {
           display: flex;
-          gap: 10px;
           align-items: center;
+          gap: 10px;
         }
 
         .dot {
@@ -109,6 +130,7 @@ export default function Dashboard() {
           background: #00ff88;
           border-radius: 50%;
           animation: pulse 2s infinite;
+          box-shadow: 0 0 10px #00ff88;
         }
 
         .core-area {
@@ -123,14 +145,20 @@ export default function Dashboard() {
           gap: 60px;
         }
 
+        .block {
+          text-align: center;
+        }
+
         .label {
           font-size: 11px;
           opacity: 0.6;
+          letter-spacing: 2px;
         }
 
         .value {
           font-size: 14px;
-          margin-top: 4px;
+          margin-top: 5px;
+          letter-spacing: 1px;
         }
 
         @keyframes pulse {
