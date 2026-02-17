@@ -5,17 +5,24 @@ import { useEffect, useState } from "react";
 export default function Dashboard() {
 
   const [text, setText] = useState("");
-  const fullText = "Olá, humano. Eu sou a ZoopAI. Seu núcleo está conectado.";
 
   useEffect(() => {
+
+    const fullText = "Olá, humano. Eu sou a ZoopAI. Seu núcleo está conectado.";
     let i = 0;
+
     const interval = setInterval(() => {
-      setText(fullText.slice(0, i));
+      setText(fullText.substring(0, i));
       i++;
-      if (i > fullText.length) clearInterval(interval);
+
+      if (i > fullText.length) {
+        clearInterval(interval);
+      }
+
     }, 35);
 
     return () => clearInterval(interval);
+
   }, []);
 
   return (
@@ -28,38 +35,36 @@ export default function Dashboard() {
       flexDirection: "column",
       color: "white",
       fontFamily: "monospace",
-      overflow: "hidden"
+      position: "relative"
     }}>
 
-      {/* Glow background */}
+      {/* Glow */}
       <div style={{
         position: "absolute",
         width: "600px",
         height: "600px",
         background: "radial-gradient(circle, rgba(59,130,246,0.35), transparent)",
-        filter: "blur(120px)",
-        animation: "pulse 4s infinite"
+        filter: "blur(120px)"
       }} />
 
       {/* Robot */}
       <div style={{
         fontSize: "120px",
-        marginBottom: "30px",
-        animation: "float 4s ease-in-out infinite"
+        marginBottom: "30px"
       }}>
         🤖
       </div>
 
       {/* Core panel */}
       <div style={{
-        background: "rgba(15,23,42,0.6)",
+        background: "rgba(15,23,42,0.7)",
         padding: "50px",
         borderRadius: "20px",
         border: "1px solid rgba(59,130,246,0.4)",
         boxShadow: "0 0 80px rgba(59,130,246,0.35)",
         textAlign: "center",
         width: "600px",
-        backdropFilter: "blur(20px)"
+        backdropFilter: "blur(10px)"
       }}>
 
         <div style={{
@@ -76,11 +81,6 @@ export default function Dashboard() {
           minHeight: "40px"
         }}>
           {text}
-          <span style={{
-            borderRight: "2px solid #3b82f6",
-            marginLeft: "5px",
-            animation: "blink 1s infinite"
-          }} />
         </div>
 
         <div style={{
@@ -93,7 +93,6 @@ export default function Dashboard() {
 
       </div>
 
-      <style>{`
-        @keyframes pulse {
-          0% { opacity: 0.6 }
-          50% { opacity: 1 }
+    </div>
+  );
+}
