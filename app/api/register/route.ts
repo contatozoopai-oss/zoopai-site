@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+);
 
 export async function POST(request: Request) {
   try {
@@ -16,35 +21,36 @@ export async function POST(request: Request) {
       );
     }
 
-    const { error } = await supabase
-      .from("users")
-      .insert([
-        {
-          name,
-          email,
-          password
-        }
-      ]);
+    // cria usuário no Supabase Auth
+    const { data, error } = await supabase.auth.admin.createUser({
+      email,
+      password,
+      email_confirm: true
+    });
 
     if (error) {
-      console.error("Supabase error:", error);
-
       return NextResponse.json(
-        { error: "Erro ao salvar no banco" },
+        { error: error.message },
         { status: 500 }
       );
     }
 
-    return NextResponse.json(
-      { success: true },
-      { status: 200 }
-    );
+    // salva dados extras na sua tabela
+    await supabase.from("users").insert([
+      {
+        id: data.user.id,
+        name,
+        email
+      }
+    ]);
 
-  } catch (err) {
-    console.error("API error:", err);
+    return NextResponse.json({
+      success: true
+    });
 
+  } catch (error) {
     return NextResponse.json(
-      { error: "Erro interno do servidor" },
+      { error: "Erro no servidor" },
       { status: 500 }
     );
   }
