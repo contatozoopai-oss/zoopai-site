@@ -4,12 +4,12 @@ import { useEffect, useState } from "react";
 
 export default function Dashboard() {
 
-  const [pulse, setPulse] = useState(0);
+  const [scale, setScale] = useState(1);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setPulse(prev => (prev + 1) % 100);
-    }, 50);
+      setScale(1 + Math.sin(Date.now() / 500) * 0.03);
+    }, 16);
 
     return () => clearInterval(interval);
   }, []);
@@ -17,27 +17,34 @@ export default function Dashboard() {
   return (
     <div style={styles.container}>
 
-      {/* CAMPO DE FUNDO */}
-      <div style={styles.backgroundGlow} />
+      {/* CAMPO DE ENERGIA */}
+      <div style={styles.energyField} />
 
       {/* NÚCLEO */}
-      <div style={styles.coreWrapper}>
+      <div style={styles.coreContainer}>
 
         <div
           style={{
-            ...styles.coreOuter,
-            transform: `scale(${1 + pulse * 0.002})`,
+            ...styles.coreLayer1,
+            transform: `scale(${scale})`
           }}
         />
 
         <div
           style={{
-            ...styles.coreMiddle,
-            transform: `scale(${1 + pulse * 0.0015})`,
+            ...styles.coreLayer2,
+            transform: `scale(${scale * 0.95})`
           }}
         />
 
-        <div style={styles.coreInner} />
+        <div
+          style={{
+            ...styles.coreLayer3,
+            transform: `scale(${scale * 0.9})`
+          }}
+        />
+
+        <div style={styles.coreCenter} />
 
       </div>
 
@@ -55,7 +62,7 @@ export default function Dashboard() {
         <div style={styles.text}>
           Sua identidade foi integrada ao núcleo ZoopAI.
           <br />
-          Todos os sistemas estão operacionais.
+          Todos os sistemas operam em sincronização total.
         </div>
 
         <div style={styles.status}>
@@ -78,91 +85,101 @@ const styles: any = {
     justifyContent: "center",
     alignItems: "center",
     color: "white",
-    fontFamily: "system-ui, sans-serif",
     overflow: "hidden",
   },
 
-  backgroundGlow: {
+  energyField: {
     position: "absolute",
-    width: "900px",
-    height: "900px",
+    width: "1200px",
+    height: "1200px",
     background: "radial-gradient(circle, rgba(37,99,235,0.25), transparent 70%)",
     filter: "blur(120px)",
   },
 
-  coreWrapper: {
+  coreContainer: {
     position: "relative",
-    width: "220px",
-    height: "220px",
-    marginBottom: "50px",
+    width: "320px",
+    height: "320px",
+    marginBottom: "60px",
   },
 
-  coreOuter: {
+  coreLayer1: {
     position: "absolute",
-    width: "220px",
-    height: "220px",
+    width: "320px",
+    height: "320px",
     borderRadius: "50%",
     background: "radial-gradient(circle, rgba(37,99,235,0.4), transparent 70%)",
+    filter: "blur(25px)",
+  },
+
+  coreLayer2: {
+    position: "absolute",
+    width: "240px",
+    height: "240px",
+    top: "40px",
+    left: "40px",
+    borderRadius: "50%",
+    background: "radial-gradient(circle, rgba(37,99,235,0.7), transparent 70%)",
     filter: "blur(20px)",
   },
 
-  coreMiddle: {
+  coreLayer3: {
     position: "absolute",
     width: "160px",
     height: "160px",
-    top: "30px",
-    left: "30px",
+    top: "80px",
+    left: "80px",
     borderRadius: "50%",
-    background: "radial-gradient(circle, rgba(37,99,235,0.7), transparent 70%)",
+    background: "radial-gradient(circle, rgba(96,165,250,0.9), transparent 70%)",
     filter: "blur(10px)",
   },
 
-  coreInner: {
+  coreCenter: {
     position: "absolute",
-    width: "80px",
-    height: "80px",
-    top: "70px",
-    left: "70px",
+    width: "90px",
+    height: "90px",
+    top: "115px",
+    left: "115px",
     borderRadius: "50%",
     background: "radial-gradient(circle, #60a5fa, #2563eb)",
-    boxShadow: "0 0 40px rgba(37,99,235,0.9)",
+    boxShadow: "0 0 60px rgba(37,99,235,1)",
   },
 
   panel: {
-    background: "rgba(2,6,23,0.6)",
-    border: "1px solid rgba(37,99,235,0.4)",
-    padding: "40px",
+    background: "rgba(2,6,23,0.7)",
+    border: "1px solid rgba(37,99,235,0.5)",
+    padding: "45px",
     borderRadius: "16px",
     textAlign: "center",
-    backdropFilter: "blur(20px)",
-    boxShadow: "0 0 40px rgba(37,99,235,0.2)",
-    width: "420px",
+    backdropFilter: "blur(30px)",
+    boxShadow: "0 0 60px rgba(37,99,235,0.3)",
+    width: "480px",
   },
 
   label: {
     color: "#60a5fa",
     letterSpacing: "4px",
-    fontSize: "12px",
-    marginBottom: "12px",
+    fontSize: "13px",
+    marginBottom: "15px",
   },
 
   title: {
-    fontSize: "28px",
+    fontSize: "32px",
     fontWeight: "600",
-    marginBottom: "16px",
+    marginBottom: "18px",
   },
 
   text: {
     color: "#94a3b8",
-    fontSize: "15px",
-    lineHeight: "1.6",
-    marginBottom: "20px",
+    fontSize: "16px",
+    lineHeight: "1.7",
+    marginBottom: "25px",
   },
 
   status: {
     color: "#22c55e",
-    fontSize: "13px",
-    letterSpacing: "3px",
+    fontSize: "14px",
+    letterSpacing: "4px",
   },
 
 };
