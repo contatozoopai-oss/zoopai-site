@@ -7,9 +7,8 @@ export async function POST(request: Request) {
 
     const name = body.name;
     const email = body.email;
-    const password = body.password;
 
-    if (!name || !email || !password) {
+    if (!name || !email) {
       return NextResponse.json(
         { error: "Campos obrigatórios faltando" },
         { status: 400 }
@@ -22,7 +21,6 @@ export async function POST(request: Request) {
         {
           name,
           email,
-          password,
         },
       ]);
 
@@ -35,15 +33,13 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json(
-      { message: "Conta criada com sucesso" },
+      { message: "Usuário criado com sucesso" },
       { status: 200 }
     );
-
-  } catch (error) {
-    console.error(error);
-
+  } catch (err) {
+    console.error(err);
     return NextResponse.json(
-      { error: "Erro interno do servidor" },
+      { error: "Erro interno" },
       { status: 500 }
     );
   }
