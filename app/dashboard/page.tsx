@@ -1,173 +1,145 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ZoopCore from "./ZoopCore";
 import ZoopParticles from "./ZoopParticles";
 import { supabase } from "../lib/supabase";
 
 export default function Dashboard() {
 
-  const [email, setEmail] = useState("CONECTANDO...");
+  const [email, setEmail] = useState<string>("CONECTANDO...");
 
   useEffect(() => {
 
-    async function getUser() {
+    const load = async () => {
 
       try {
 
-        const {
-          data: { user },
-          error,
-        } = await supabase.auth.getUser();
+        const result = await supabase.auth.getUser();
 
-        if (error) {
-          setEmail("ERRO DE IDENTIDADE");
-          return;
-        }
-
-        if (user?.email) {
-          setEmail(user.email.toUpperCase());
+        if (result?.data?.user?.email) {
+          setEmail(result.data.user.email.toUpperCase());
         } else {
           setEmail("SEM IDENTIDADE");
         }
 
-      } catch {
-        setEmail("FALHA NA CONSCIÊNCIA");
+      } catch (e) {
+
+        setEmail("ERRO");
+
       }
 
-    }
+    };
 
-    getUser();
+    load();
 
   }, []);
 
   return (
-    <>
-      <div className="dashboard">
+    <div style={container}>
 
-        {/* topo */}
-        <div className="hud-top">
+      {/* topo */}
+      <div style={top}>
 
-          <div className="logo">
-            ZOOPAI
-          </div>
+        <div>ZOOPAI</div>
 
-          <div className="status">
-            <div className="dot"></div>
-            CONSCIÊNCIA ATIVA
-          </div>
-
-        </div>
-
-
-        {/* núcleo */}
-        <div className="core-area">
-
-          <ZoopParticles />
-
-          <ZoopCore />
-
-        </div>
-
-
-        {/* base */}
-        <div className="hud-bottom">
-
-          <div className="block">
-            <div className="label">STATUS</div>
-            <div className="value">ONLINE</div>
-          </div>
-
-          <div className="block">
-            <div className="label">PROCESSAMENTO</div>
-            <div className="value">NOMINAL</div>
-          </div>
-
-          <div className="block">
-            <div className="label">IDENTIDADE</div>
-            <div className="value">{email}</div>
-          </div>
-
+        <div style={status}>
+          <div style={dot}></div>
+          CONSCIÊNCIA ATIVA
         </div>
 
       </div>
 
 
-      <style>{`
+      {/* núcleo */}
+      <div style={coreArea}>
 
-        .dashboard {
-          min-height: 100vh;
-          background: radial-gradient(circle at center, #020412, #000000);
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          align-items: center;
-          padding: 30px;
-          color: #00f0ff;
-          font-family: Arial, sans-serif;
-        }
+        <ZoopParticles />
 
-        .hud-top {
-          width: 100%;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
+        <ZoopCore />
 
-        .logo {
-          letter-spacing: 4px;
-        }
+      </div>
 
-        .status {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-        }
 
-        .dot {
-          width: 10px;
-          height: 10px;
-          background: #00ff88;
-          border-radius: 50%;
-          animation: pulse 2s infinite;
-          box-shadow: 0 0 10px #00ff88;
-        }
+      {/* base */}
+      <div style={bottom}>
 
-        .core-area {
-          position: relative;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
+        <Info label="STATUS" value="ONLINE" />
 
-        .hud-bottom {
-          display: flex;
-          gap: 60px;
-        }
+        <Info label="PROCESSAMENTO" value="NOMINAL" />
 
-        .block {
-          text-align: center;
-        }
+        <Info label="IDENTIDADE" value={email} />
 
-        .label {
-          font-size: 11px;
-          opacity: 0.6;
-          letter-spacing: 2px;
-        }
+      </div>
 
-        .value {
-          font-size: 14px;
-          margin-top: 5px;
-          letter-spacing: 1px;
-        }
-
-        @keyframes pulse {
-          0%,100% { opacity: 1; }
-          50% { opacity: 0.3; }
-        }
-
-      `}</style>
-
-    </>
+    </div>
   );
 }
+
+
+function Info({ label, value }: { label: string; value: string }) {
+
+  return (
+    <div style={{ textAlign: "center" }}>
+      <div style={labelStyle}>{label}</div>
+      <div style={valueStyle}>{value}</div>
+    </div>
+  );
+
+}
+
+
+/* styles */
+
+const container: React.CSSProperties = {
+  minHeight: "100vh",
+  background: "radial-gradient(circle at center, #020412, #000000)",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-between",
+  alignItems: "center",
+  padding: "30px",
+  color: "#00f0ff",
+  fontFamily: "Arial",
+};
+
+const top: React.CSSProperties = {
+  width: "100%",
+  display: "flex",
+  justifyContent: "space-between",
+};
+
+const status: React.CSSProperties = {
+  display: "flex",
+  gap: "10px",
+  alignItems: "center",
+};
+
+const dot: React.CSSProperties = {
+  width: "10px",
+  height: "10px",
+  background: "#00ff88",
+  borderRadius: "50%",
+};
+
+const coreArea: React.CSSProperties = {
+  position: "relative",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+};
+
+const bottom: React.CSSProperties = {
+  display: "flex",
+  gap: "60px",
+};
+
+const labelStyle: React.CSSProperties = {
+  fontSize: "11px",
+  opacity: 0.6,
+};
+
+const valueStyle: React.CSSProperties = {
+  fontSize: "14px",
+  marginTop: "5px",
+};
