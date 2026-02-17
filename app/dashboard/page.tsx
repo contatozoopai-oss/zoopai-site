@@ -7,61 +7,44 @@ import { supabase } from "../../lib/supabase";
 
 export default function Dashboard() {
 
-  const [email, setEmail] = useState<string>("CONECTANDO...");
+  const [email, setEmail] = useState("CONECTANDO...");
 
   useEffect(() => {
 
-    const load = async () => {
+    async function loadUser() {
 
-      try {
+      const { data, error } = await supabase.auth.getUser();
 
-        const result = await supabase.auth.getUser();
-
-        if (result?.data?.user?.email) {
-          setEmail(result.data.user.email.toUpperCase());
-        } else {
-          setEmail("SEM IDENTIDADE");
-        }
-
-      } catch (e) {
-
+      if (error) {
         setEmail("ERRO");
-
+        return;
       }
 
-    };
+      if (data.user?.email) {
+        setEmail(data.user.email.toUpperCase());
+      } else {
+        setEmail("SEM IDENTIDADE");
+      }
 
-    load();
+    }
+
+    loadUser();
 
   }, []);
 
   return (
     <div style={container}>
 
-      {/* topo */}
       <div style={top}>
-
         <div>ZOOPAI</div>
-
-        <div style={status}>
-          <div style={dot}></div>
-          CONSCIÊNCIA ATIVA
-        </div>
-
+        <div>CONSCIÊNCIA ATIVA</div>
       </div>
 
-
-      {/* núcleo */}
       <div style={coreArea}>
-
         <ZoopParticles />
-
         <ZoopCore />
-
       </div>
 
-
-      {/* base */}
       <div style={bottom}>
 
         <Info label="STATUS" value="ONLINE" />
@@ -76,26 +59,20 @@ export default function Dashboard() {
   );
 }
 
-
 function Info({ label, value }: { label: string; value: string }) {
-
   return (
     <div style={{ textAlign: "center" }}>
       <div style={labelStyle}>{label}</div>
       <div style={valueStyle}>{value}</div>
     </div>
   );
-
 }
 
-
-/* styles */
-
-const container: React.CSSProperties = {
+const container = {
   minHeight: "100vh",
   background: "radial-gradient(circle at center, #020412, #000000)",
   display: "flex",
-  flexDirection: "column",
+  flexDirection: "column" as const,
   justifyContent: "space-between",
   alignItems: "center",
   padding: "30px",
@@ -103,43 +80,27 @@ const container: React.CSSProperties = {
   fontFamily: "Arial",
 };
 
-const top: React.CSSProperties = {
+const top = {
   width: "100%",
   display: "flex",
   justifyContent: "space-between",
 };
 
-const status: React.CSSProperties = {
-  display: "flex",
-  gap: "10px",
-  alignItems: "center",
+const coreArea = {
+  position: "relative" as const,
 };
 
-const dot: React.CSSProperties = {
-  width: "10px",
-  height: "10px",
-  background: "#00ff88",
-  borderRadius: "50%",
-};
-
-const coreArea: React.CSSProperties = {
-  position: "relative",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-};
-
-const bottom: React.CSSProperties = {
+const bottom = {
   display: "flex",
   gap: "60px",
 };
 
-const labelStyle: React.CSSProperties = {
+const labelStyle = {
   fontSize: "11px",
   opacity: 0.6,
 };
 
-const valueStyle: React.CSSProperties = {
+const valueStyle = {
   fontSize: "14px",
   marginTop: "5px",
 };
