@@ -11,24 +11,38 @@ export default function Dashboard() {
 
   useEffect(() => {
 
-    async function loadUser() {
+    async function loadSession() {
 
-      const { data, error } = await supabase.auth.getUser();
+      try {
 
-      if (error) {
+        const { data, error } = await supabase.auth.getSession();
+
+        if (error) {
+          setEmail("ERRO");
+          return;
+        }
+
+        const session = data.session;
+
+        if (session?.user?.email) {
+
+          setEmail(session.user.email.toUpperCase());
+
+        } else {
+
+          setEmail("NÃO AUTENTICADO");
+
+        }
+
+      } catch {
+
         setEmail("ERRO");
-        return;
-      }
 
-      if (data.user?.email) {
-        setEmail(data.user.email.toUpperCase());
-      } else {
-        setEmail("SEM IDENTIDADE");
       }
 
     }
 
-    loadUser();
+    loadSession();
 
   }, []);
 
@@ -59,14 +73,20 @@ export default function Dashboard() {
   );
 }
 
+
 function Info({ label, value }: { label: string; value: string }) {
+
   return (
     <div style={{ textAlign: "center" }}>
       <div style={labelStyle}>{label}</div>
       <div style={valueStyle}>{value}</div>
     </div>
   );
+
 }
+
+
+/* styles */
 
 const container = {
   minHeight: "100vh",
