@@ -15,7 +15,7 @@ export default function ZoopCore() {
       <div className="ring ring-3"></div>
 
       <div className="core-text">
-        ZOOPAI CORE
+        ZOOPAI CORE ONLINE
       </div>
 
       <style jsx>{`
@@ -56,7 +56,7 @@ export default function ZoopCore() {
           width: 200px;
           height: 200px;
           border-radius: 50%;
-          background: radial-gradient(circle, rgba(0,240,255,0.3), transparent);
+          background: radial-gradient(circle, rgba(0,240,255,0.25), transparent);
           animation: auraPulse 4s infinite ease-in-out;
         }
 
@@ -86,42 +86,60 @@ export default function ZoopCore() {
 
         .core-text {
           position: absolute;
-          bottom: -40px;
-          font-size: 14px;
-          letter-spacing: 4px;
+          bottom: -45px;
+          font-size: 13px;
+          letter-spacing: 3px;
           color: #00f0ff;
-          opacity: 0.8;
+          opacity: 0.85;
+          font-family: -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         @keyframes pulse {
-          0%,100% {
+          0%, 100% {
             transform: scale(1);
           }
           50% {
-            transform: scale(1.1);
+            transform: scale(1.12);
           }
         }
 
         @keyframes spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
         }
 
         @keyframes rotate {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
         }
 
         @keyframes rotateReverse {
-          from { transform: rotate(360deg); }
-          to { transform: rotate(0deg); }
+          from {
+            transform: rotate(360deg);
+          }
+          to {
+            transform: rotate(0deg);
+          }
         }
 
         @keyframes auraPulse {
-          0%,100% { transform: scale(1); opacity: 0.5; }
-          50% { transform: scale(1.2); opacity: 1; }
+          0%, 100% {
+            transform: scale(1);
+            opacity: 0.4;
+          }
+          50% {
+            transform: scale(1.2);
+            opacity: 0.9;
+          }
         }
-
       `}</style>
 
     </div>
