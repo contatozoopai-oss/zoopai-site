@@ -1,10 +1,5 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+import { supabase } from "@/lib/supabase";
 
 export async function POST(request: Request) {
   try {
@@ -21,36 +16,34 @@ export async function POST(request: Request) {
       );
     }
 
-    // cria usuário no Supabase Auth
-    const { data, error } = await supabase.auth.admin.createUser({
-      email,
-      password,
-      email_confirm: true
-    });
+    const { error } = await supabase
+      .from("users")
+      .insert([
+        {
+          name,
+          email,
+          password,
+        },
+      ]);
 
     if (error) {
+      console.error("Supabase error:", error);
       return NextResponse.json(
         { error: error.message },
         { status: 500 }
       );
     }
 
-    // salva dados extras na sua tabela
-    await supabase.from("users").insert([
-      {
-        id: data.user.id,
-        name,
-        email
-      }
-    ]);
-
     return NextResponse.json({
-      success: true
+      success: true,
+      message: "Conta criada com sucesso",
     });
 
   } catch (error) {
+    console.error("Server error:", error);
+
     return NextResponse.json(
-      { error: "Erro no servidor" },
+      { error: "Erro interno do servidor" },
       { status: 500 }
     );
   }
