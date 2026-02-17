@@ -1,50 +1,30 @@
-import { NextResponse } from "next/server";
-import { supabase } from "@/lib/supabase";
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-export async function POST(request: Request) {
   try {
-    const body = await request.json();
-
-    const name = body.name;
-    const email = body.email;
-    const password = body.password;
-
-    if (!name || !email || !password) {
-      return NextResponse.json(
-        { error: "Campos obrigatórios faltando" },
-        { status: 400 }
-      );
-    }
-
-    const { error } = await supabase
-      .from("users")
-      .insert([
-        {
-          name,
-          email,
-          password,
-        },
-      ]);
-
-    if (error) {
-      console.error("Supabase error:", error);
-      return NextResponse.json(
-        { error: error.message },
-        { status: 500 }
-      );
-    }
-
-    return NextResponse.json({
-      success: true,
-      message: "Conta criada com sucesso",
+    const res = await fetch("/api/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        password,
+      }),
     });
 
-  } catch (error) {
-    console.error("Server error:", error);
+    const data = await res.json();
 
-    return NextResponse.json(
-      { error: "Erro interno do servidor" },
-      { status: 500 }
-    );
+    if (!res.ok) {
+      alert(data.error || "Erro ao criar conta");
+      return;
+    }
+
+    alert("Conta criada com sucesso!");
+
+  } catch (error) {
+    console.error(error);
+    alert("Erro de conexão com servidor");
   }
-}
+};
