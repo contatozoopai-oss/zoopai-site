@@ -1,6 +1,22 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 export default function Dashboard() {
+
+  const [text, setText] = useState("");
+  const fullText = "Olá, humano. Eu sou a ZoopAI. Seu núcleo está conectado.";
+
+  useEffect(() => {
+    let i = 0;
+    const interval = setInterval(() => {
+      setText(fullText.slice(0, i));
+      i++;
+      if (i > fullText.length) clearInterval(interval);
+    }, 35);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div style={{
@@ -9,60 +25,75 @@ export default function Dashboard() {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
+      flexDirection: "column",
       color: "white",
-      fontFamily: "monospace"
+      fontFamily: "monospace",
+      overflow: "hidden"
     }}>
 
+      {/* Glow background */}
       <div style={{
-        background: "rgba(17,24,39,0.8)",
-        padding: "40px",
-        borderRadius: "16px",
-        border: "1px solid rgba(59,130,246,0.3)",
-        boxShadow: "0 0 40px rgba(37,99,235,0.3)",
-        textAlign: "center"
+        position: "absolute",
+        width: "600px",
+        height: "600px",
+        background: "radial-gradient(circle, rgba(59,130,246,0.35), transparent)",
+        filter: "blur(120px)",
+        animation: "pulse 4s infinite"
+      }} />
+
+      {/* Robot */}
+      <div style={{
+        fontSize: "120px",
+        marginBottom: "30px",
+        animation: "float 4s ease-in-out infinite"
+      }}>
+        🤖
+      </div>
+
+      {/* Core panel */}
+      <div style={{
+        background: "rgba(15,23,42,0.6)",
+        padding: "50px",
+        borderRadius: "20px",
+        border: "1px solid rgba(59,130,246,0.4)",
+        boxShadow: "0 0 80px rgba(59,130,246,0.35)",
+        textAlign: "center",
+        width: "600px",
+        backdropFilter: "blur(20px)"
       }}>
 
         <div style={{
-          width: "12px",
-          height: "12px",
-          background: "#3b82f6",
-          borderRadius: "50%",
-          margin: "0 auto 15px auto",
-          boxShadow: "0 0 20px #3b82f6",
-          animation: "pulse 2s infinite"
-        }}/>
-
-        <h1 style={{
-          color: "#60a5fa",
-          marginBottom: "10px"
+          color: "#3b82f6",
+          marginBottom: "20px",
+          fontSize: "18px",
+          letterSpacing: "4px"
         }}>
-          ZoopAI CORE
-        </h1>
+          ZOOPAI CORE ONLINE
+        </div>
 
-        <p style={{
-          color: "#cbd5e1"
+        <div style={{
+          fontSize: "24px",
+          minHeight: "40px"
         }}>
-          Bem-vindo, humano.
-        </p>
+          {text}
+          <span style={{
+            borderRight: "2px solid #3b82f6",
+            marginLeft: "5px",
+            animation: "blink 1s infinite"
+          }} />
+        </div>
 
-        <p style={{
-          color: "#94a3b8"
+        <div style={{
+          marginTop: "30px",
+          fontSize: "14px",
+          opacity: 0.6
         }}>
-          Sua identidade digital está ativa.
-        </p>
+          Sistema consciente ativo
+        </div>
 
       </div>
 
-      <style>
-        {`
+      <style>{`
         @keyframes pulse {
-          0% { opacity: 0.4; transform: scale(1);}
-          50% { opacity: 1; transform: scale(1.2);}
-          100% { opacity: 0.4; transform: scale(1);}
-        }
-        `}
-      </style>
-
-    </div>
-  );
-}
+          0% { opacity: 0.6 }
+          50% { opacity: 1 }
