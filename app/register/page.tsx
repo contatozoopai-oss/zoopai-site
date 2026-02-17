@@ -3,75 +3,111 @@
 import { useState } from "react";
 
 export default function RegisterPage() {
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  async function handleRegister(e: any) {
+  async function handleRegister(e: React.FormEvent) {
     e.preventDefault();
 
-    const res = await fetch("/api/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
-        email,
-        password,
-      }),
-    });
+    try {
+      setLoading(true);
 
-    if (res.ok) {
+      const res = await fetch("/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Erro ao criar conta");
+      }
+
       alert("Conta criada com sucesso!");
-      window.location.href = "/dashboard";
-    } else {
-      alert("Erro ao criar conta");
+
+      setName("");
+      setEmail("");
+      setPassword("");
+
+    } catch (error: any) {
+      alert(error.message);
+    } finally {
+      setLoading(false);
     }
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#020617]">
-
+    <div style={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      height: "100vh",
+      background: "#0b1220",
+      color: "white"
+    }}>
       <form
         onSubmit={handleRegister}
-        className="bg-[#0F172A] p-8 rounded-xl w-full max-w-md"
+        style={{
+          background: "#111827",
+          padding: "30px",
+          borderRadius: "10px",
+          width: "300px"
+        }}
       >
-
-        <h1 className="text-white text-2xl mb-6">
-          Criar conta ZoopAI
-        </h1>
+        <h2>Criar conta ZoopAI</h2>
 
         <input
           type="text"
           placeholder="Nome"
-          className="w-full p-3 mb-4 bg-[#1E293B] text-white rounded"
+          value={name}
           onChange={(e) => setName(e.target.value)}
+          required
+          style={{ width: "100%", marginTop: "10px", padding: "10px" }}
         />
 
         <input
           type="email"
           placeholder="Email"
-          className="w-full p-3 mb-4 bg-[#1E293B] text-white rounded"
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
+          style={{ width: "100%", marginTop: "10px", padding: "10px" }}
         />
 
         <input
           type="password"
           placeholder="Senha"
-          className="w-full p-3 mb-4 bg-[#1E293B] text-white rounded"
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
+          style={{ width: "100%", marginTop: "10px", padding: "10px" }}
         />
 
         <button
-          className="w-full bg-blue-600 p-3 rounded text-white"
+          type="submit"
+          disabled={loading}
+          style={{
+            width: "100%",
+            marginTop: "15px",
+            padding: "10px",
+            background: "#2563eb",
+            color: "white",
+            border: "none",
+            borderRadius: "5px"
+          }}
         >
-          Criar conta
+          {loading ? "Criando..." : "Criar conta"}
         </button>
-
       </form>
-
     </div>
   );
 }
