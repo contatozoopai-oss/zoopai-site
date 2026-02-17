@@ -8,77 +8,76 @@ export default function Dashboard() {
 
   useEffect(() => {
 
-    const fullText = "Olá, humano. Eu sou a ZoopAI. Seu núcleo está conectado.";
+    const fullText = "Olá, humano. Eu sou a ZoopAI. Sua identidade digital foi ativada.";
     let i = 0;
 
     const interval = setInterval(() => {
+
       setText(fullText.substring(0, i));
       i++;
 
-      if (i > fullText.length) {
-        clearInterval(interval);
-      }
+      if (i > fullText.length) clearInterval(interval);
 
-    }, 35);
+    }, 30);
 
     return () => clearInterval(interval);
 
   }, []);
 
   return (
+
     <div style={{
       height: "100vh",
-      background: "radial-gradient(circle at center, #020617, #000)",
+      background: "radial-gradient(circle at center, #020617 0%, #000 100%)",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
       flexDirection: "column",
-      color: "white",
       fontFamily: "monospace",
-      position: "relative"
+      color: "white",
+      overflow: "hidden"
     }}>
 
-      {/* Glow */}
+      {/* CORE ENERGÉTICO */}
       <div style={{
-        position: "absolute",
-        width: "600px",
-        height: "600px",
-        background: "radial-gradient(circle, rgba(59,130,246,0.35), transparent)",
-        filter: "blur(120px)"
+        width: "220px",
+        height: "220px",
+        borderRadius: "50%",
+        background: "radial-gradient(circle, #3b82f6, #1d4ed8, transparent)",
+        boxShadow: `
+          0 0 40px #3b82f6,
+          0 0 80px #3b82f6,
+          0 0 120px rgba(59,130,246,0.6)
+        `,
+        marginBottom: "50px",
+        animation: "pulse 2s infinite"
       }} />
 
-      {/* Robot */}
+      {/* PAINEL */}
       <div style={{
-        fontSize: "120px",
-        marginBottom: "30px"
-      }}>
-        🤖
-      </div>
-
-      {/* Core panel */}
-      <div style={{
-        background: "rgba(15,23,42,0.7)",
-        padding: "50px",
+        background: "rgba(15,23,42,0.6)",
+        padding: "60px",
         borderRadius: "20px",
         border: "1px solid rgba(59,130,246,0.4)",
-        boxShadow: "0 0 80px rgba(59,130,246,0.35)",
+        boxShadow: "0 0 60px rgba(59,130,246,0.25)",
+        width: "700px",
         textAlign: "center",
-        width: "600px",
         backdropFilter: "blur(10px)"
       }}>
 
         <div style={{
           color: "#3b82f6",
-          marginBottom: "20px",
           fontSize: "18px",
-          letterSpacing: "4px"
+          letterSpacing: "6px",
+          marginBottom: "25px"
         }}>
-          ZOOPAI CORE ONLINE
+          ZOOPAI CORE
         </div>
 
         <div style={{
-          fontSize: "24px",
-          minHeight: "40px"
+          fontSize: "28px",
+          lineHeight: "1.6",
+          minHeight: "60px"
         }}>
           {text}
         </div>
@@ -86,12 +85,32 @@ export default function Dashboard() {
         <div style={{
           marginTop: "30px",
           fontSize: "14px",
-          opacity: 0.6
+          opacity: 0.5
         }}>
           Sistema consciente ativo
         </div>
 
       </div>
+
+      {/* ANIMAÇÃO */}
+      <style>
+        {`
+          @keyframes pulse {
+            0% {
+              transform: scale(1);
+              opacity: 1;
+            }
+            50% {
+              transform: scale(1.15);
+              opacity: 0.8;
+            }
+            100% {
+              transform: scale(1);
+              opacity: 1;
+            }
+          }
+        `}
+      </style>
 
     </div>
   );
