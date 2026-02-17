@@ -1,23 +1,50 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ZoopCore from "./ZoopCore";
 import ZoopParticles from "./ZoopParticles";
+import { supabase } from "../lib/supabase";
 
 export default function Dashboard() {
+
+  const [email, setEmail] = useState("CONECTANDO...");
+
+  useEffect(() => {
+
+    async function loadUser() {
+
+      const { data } = await supabase.auth.getUser();
+
+      if (data.user?.email) {
+        setEmail(data.user.email.toUpperCase());
+      } else {
+        setEmail("IDENTIDADE DESCONHECIDA");
+      }
+
+    }
+
+    loadUser();
+
+  }, []);
+
   return (
     <>
       <div className="dashboard">
 
+        {/* topo */}
         <div className="hud-top">
+
           <div>ZOOPAI</div>
+
           <div className="status">
             <div className="dot"></div>
             CONSCIÊNCIA ATIVA
           </div>
+
         </div>
 
 
+        {/* núcleo */}
         <div className="core-area">
 
           <ZoopParticles />
@@ -27,6 +54,7 @@ export default function Dashboard() {
         </div>
 
 
+        {/* base */}
         <div className="hud-bottom">
 
           <div>
@@ -41,12 +69,13 @@ export default function Dashboard() {
 
           <div>
             <div className="label">IDENTIDADE</div>
-            <div className="value">ZOOPAI CORE</div>
+            <div className="value">{email}</div>
           </div>
 
         </div>
 
       </div>
+
 
       <style>{`
 
@@ -110,6 +139,7 @@ export default function Dashboard() {
         }
 
       `}</style>
+
     </>
   );
 }
