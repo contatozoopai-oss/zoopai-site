@@ -2,7 +2,6 @@
 
 import ZoopCore from "../dashboard/ZoopCore";
 import ZoopWelcome from "./ZoopWelcome";
-import ZoopField from "./ZoopField";
 import { supabase } from "../../lib/supabase";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -18,21 +17,24 @@ export default function LoginPage() {
     setLoading(true);
 
     const { error } = await supabase.auth.signInWithPassword({
+
       email: "contato.zoopai@gmail.com",
-      password: "SUA_SENHA"
+      password: "SUA_SENHA_AQUI"
+
     });
 
-    if (!error) router.push("/dashboard");
+    if (!error) {
+
+      router.push("/dashboard");
+
+    }
 
     setLoading(false);
 
   }
 
   return (
-
     <div style={container}>
-
-      <ZoopField />
 
       <div style={center}>
 
@@ -40,16 +42,16 @@ export default function LoginPage() {
 
         <ZoopWelcome />
 
-        <button onClick={enter} style={button}>
-
-          {loading ? "Conectando..." : "ENTRAR NA CONSCIÊNCIA"}
-
+        <button
+          onClick={enter}
+          style={button}
+        >
+          {loading ? "Conectando..." : "ACESSAR ZOOPAI"}
         </button>
 
       </div>
 
     </div>
-
   );
 
 }
@@ -58,7 +60,8 @@ const container = {
 
   minHeight: "100vh",
 
-  background: "black",
+  background:
+    "radial-gradient(circle at center, #020412 0%, #000000 70%)",
 
   display: "flex",
 
@@ -76,18 +79,22 @@ const center = {
 
 const button = {
 
-  marginTop: "30px",
+  marginTop: "40px",
 
-  padding: "16px 40px",
+  padding: "16px 42px",
 
-  fontSize: "16px",
+  fontSize: "15px",
 
-  background: "#00f0ff",
+  letterSpacing: "1px",
 
-  border: "none",
+  background: "transparent",
+
+  color: "#00f0ff",
+
+  border: "1px solid #00f0ff",
 
   cursor: "pointer",
 
-  boxShadow: "0 0 20px #00f0ff",
+  transition: "all 0.3s ease",
 
 };
