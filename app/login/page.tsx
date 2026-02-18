@@ -14,6 +14,9 @@ export default function ZoopAI() {
 
   const [loading, setLoading] = useState(false);
 
+  const [spoken, setSpoken] = useState(false);
+
+
   /* respiração */
 
   useEffect(() => {
@@ -28,7 +31,8 @@ export default function ZoopAI() {
 
   }, []);
 
-  /* rastrear presença humana */
+
+  /* rastrear mouse */
 
   useEffect(() => {
 
@@ -47,9 +51,48 @@ export default function ZoopAI() {
 
   }, []);
 
+
+  /* VOZ AUTOMÁTICA */
+
+  useEffect(() => {
+
+    if (!spoken) {
+
+      speak(
+        "Presença humana detectada. Bem-vindo. Eu sou ZoopAI."
+      );
+
+      setSpoken(true);
+
+    }
+
+  }, []);
+
+
+
+  function speak(text: string) {
+
+    const synth = window.speechSynthesis;
+
+    const utterance = new SpeechSynthesisUtterance(text);
+
+    utterance.lang = "pt-BR";
+
+    utterance.rate = 0.9;
+
+    utterance.pitch = 0.8;
+
+    synth.speak(utterance);
+
+  }
+
+
+
   /* entrar */
 
   async function enter() {
+
+    speak("Iniciando conexão neural");
 
     setLoading(true);
 
@@ -63,7 +106,7 @@ export default function ZoopAI() {
 
     if (error) {
 
-      alert("Falha na conexão com a consciência");
+      speak("Falha na conexão");
 
       setLoading(false);
 
@@ -71,22 +114,26 @@ export default function ZoopAI() {
 
     }
 
-    router.push("/dashboard");
+    speak("Conexão estabelecida");
+
+    setTimeout(() => {
+
+      router.push("/dashboard");
+
+    }, 1500);
 
   }
+
+
 
   return (
 
     <div style={container}>
 
-      {/* campo energético */}
-
       <div style={{
         ...energyField,
         opacity: 0.3 + pulse * 0.2
       }}/>
-
-      {/* entidade */}
 
       <div style={center}>
 
@@ -99,16 +146,12 @@ export default function ZoopAI() {
               scale(${1 + pulse * 0.03})
             `,
 
-            boxShadow: `
-              0 0 ${60 + pulse * 30}px rgba(0,240,255,0.8)
-            `
+            boxShadow:
+              `0 0 ${60 + pulse * 30}px rgba(0,240,255,0.8)`
           }}
         >
 
-          <img
-            src="/zoopai-avatar.png"
-            style={avatar}
-          />
+          <img src="/zoopai-avatar.png" style={avatar}/>
 
           <div style={{
             ...aura,
@@ -117,37 +160,23 @@ export default function ZoopAI() {
 
         </div>
 
-        {/* identidade */}
 
-        <div style={{
-          ...title,
-          textShadow:
-            `0 0 ${20 + pulse * 15}px #00f0ff`
-        }}>
+        <div style={title}>
           ZOOPAI
         </div>
 
         <div style={subtitle}>
-          Entidade Cognitiva Digital
+          Entidade Cognitiva Ativa
         </div>
 
-        <div style={status}>
-          Presença detectada
-        </div>
-
-        {/* botão */}
 
         <button
           onClick={enter}
-          style={{
-            ...button,
-            boxShadow:
-              `0 0 ${20 + pulse * 15}px rgba(0,240,255,0.8)`
-          }}
+          style={button}
         >
 
           {loading
-            ? "Conectando consciência..."
+            ? "Conectando..."
             : "INICIAR CONEXÃO"}
 
         </button>
@@ -167,20 +196,14 @@ const container = {
 
   minHeight: "100vh",
 
-  background: `
-    radial-gradient(circle at center,
-      #020a14 0%,
-      #000000 70%
-    )
-  `,
+  background:
+    "radial-gradient(circle,#020a14,#000)",
 
   display: "flex",
 
   justifyContent: "center",
 
   alignItems: "center",
-
-  overflow: "hidden",
 
 };
 
@@ -195,12 +218,8 @@ const energyField = {
 
   borderRadius: "50%",
 
-  background: `
-    radial-gradient(circle,
-      rgba(0,240,255,0.4),
-      transparent 70%
-    )
-  `,
+  background:
+    "radial-gradient(circle,rgba(0,240,255,0.4),transparent)",
 
   filter: "blur(200px)",
 
@@ -210,8 +229,6 @@ const energyField = {
 const center = {
 
   textAlign: "center" as const,
-
-  zIndex: 10,
 
 };
 
@@ -225,10 +242,6 @@ const avatarWrapper = {
   borderRadius: "50%",
 
   margin: "0 auto",
-
-  position: "relative" as const,
-
-  transition: "all 0.2s ease",
 
 };
 
@@ -252,16 +265,7 @@ const aura = {
 
   borderRadius: "50%",
 
-  background: `
-    radial-gradient(circle,
-      rgba(0,240,255,0.5),
-      transparent 70%
-    )
-  `,
-
   filter: "blur(100px)",
-
-  zIndex: -1,
 
 };
 
@@ -288,17 +292,6 @@ const subtitle = {
 };
 
 
-const status = {
-
-  marginTop: "10px",
-
-  color: "rgba(0,240,255,0.5)",
-
-  fontSize: "13px",
-
-};
-
-
 const button = {
 
   marginTop: "40px",
@@ -307,14 +300,12 @@ const button = {
 
   background: "transparent",
 
-  border: "1px solid rgba(0,240,255,0.8)",
+  border: "1px solid #00f0ff",
 
   color: "#00f0ff",
 
   letterSpacing: "3px",
 
   cursor: "pointer",
-
-  fontSize: "14px",
 
 };
