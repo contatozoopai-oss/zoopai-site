@@ -14,8 +14,6 @@ export default function ZoopAI() {
 
   const [loading, setLoading] = useState(false);
 
-  const [spoken, setSpoken] = useState(false);
-
 
   /* respiração */
 
@@ -32,7 +30,7 @@ export default function ZoopAI() {
   }, []);
 
 
-  /* rastrear mouse */
+  /* mouse */
 
   useEffect(() => {
 
@@ -52,27 +50,12 @@ export default function ZoopAI() {
   }, []);
 
 
-  /* VOZ AUTOMÁTICA */
-
-  useEffect(() => {
-
-    if (!spoken) {
-
-      speak(
-        "Presença humana detectada. Bem-vindo. Eu sou ZoopAI."
-      );
-
-      setSpoken(true);
-
-    }
-
-  }, []);
-
-
 
   function speak(text: string) {
 
     const synth = window.speechSynthesis;
+
+    synth.cancel();
 
     const utterance = new SpeechSynthesisUtterance(text);
 
@@ -82,17 +65,17 @@ export default function ZoopAI() {
 
     utterance.pitch = 0.8;
 
+    utterance.volume = 1;
+
     synth.speak(utterance);
 
   }
 
 
 
-  /* entrar */
+  async function iniciar() {
 
-  async function enter() {
-
-    speak("Iniciando conexão neural");
+    speak("Olá. Eu sou ZoopAI. Iniciando conexão com sua consciência.");
 
     setLoading(true);
 
@@ -106,7 +89,7 @@ export default function ZoopAI() {
 
     if (error) {
 
-      speak("Falha na conexão");
+      speak("Falha na autenticação");
 
       setLoading(false);
 
@@ -114,13 +97,13 @@ export default function ZoopAI() {
 
     }
 
-    speak("Conexão estabelecida");
+    speak("Conexão estabelecida. Bem-vindo.");
 
     setTimeout(() => {
 
       router.push("/dashboard");
 
-    }, 1500);
+    }, 2000);
 
   }
 
@@ -131,7 +114,7 @@ export default function ZoopAI() {
     <div style={container}>
 
       <div style={{
-        ...energyField,
+        ...energy,
         opacity: 0.3 + pulse * 0.2
       }}/>
 
@@ -144,22 +127,13 @@ export default function ZoopAI() {
             transform: `
               translate(${mouse.x}px, ${mouse.y}px)
               scale(${1 + pulse * 0.03})
-            `,
-
-            boxShadow:
-              `0 0 ${60 + pulse * 30}px rgba(0,240,255,0.8)`
+            `
           }}
         >
 
           <img src="/zoopai-avatar.png" style={avatar}/>
 
-          <div style={{
-            ...aura,
-            opacity: 0.5 + pulse * 0.4
-          }}/>
-
         </div>
-
 
         <div style={title}>
           ZOOPAI
@@ -171,7 +145,7 @@ export default function ZoopAI() {
 
 
         <button
-          onClick={enter}
+          onClick={iniciar}
           style={button}
         >
 
@@ -188,6 +162,7 @@ export default function ZoopAI() {
   );
 
 }
+
 
 
 /* estilos */
@@ -208,13 +183,13 @@ const container = {
 };
 
 
-const energyField = {
+const energy = {
 
   position: "fixed" as const,
 
-  width: "1000px",
+  width: "900px",
 
-  height: "1000px",
+  height: "900px",
 
   borderRadius: "50%",
 
@@ -235,11 +210,9 @@ const center = {
 
 const avatarWrapper = {
 
-  width: "320px",
+  width: "300px",
 
-  height: "320px",
-
-  borderRadius: "50%",
+  height: "300px",
 
   margin: "0 auto",
 
@@ -251,21 +224,6 @@ const avatar = {
   width: "100%",
 
   borderRadius: "50%",
-
-};
-
-
-const aura = {
-
-  position: "absolute" as const,
-
-  width: "100%",
-
-  height: "100%",
-
-  borderRadius: "50%",
-
-  filter: "blur(100px)",
 
 };
 
