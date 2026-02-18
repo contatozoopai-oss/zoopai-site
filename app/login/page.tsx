@@ -1,68 +1,53 @@
 "use client";
 
-import { useState } from "react";
+import ZoopCore from "../dashboard/ZoopCore";
+import ZoopWelcome from "./ZoopWelcome";
 import { supabase } from "../../lib/supabase";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function LoginPage() {
 
   const router = useRouter();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  async function handleLogin(e: React.FormEvent) {
+  async function enter() {
 
-    e.preventDefault();
+    setLoading(true);
 
     const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
+      email: "contato.zoopai@gmail.com",
+      password: "SUA_SENHA_AQUI"
     });
 
-    if (error) {
-
-      setMessage("Email ou senha inválidos");
-
-    } else {
+    if (!error) {
 
       router.push("/dashboard");
 
     }
+
+    setLoading(false);
 
   }
 
   return (
     <div style={container}>
 
-      <div style={box}>
+      <div style={center}>
 
-        <h1 style={title}>ZOOPAI LOGIN</h1>
+        <ZoopCore />
 
-        <form onSubmit={handleLogin} style={form}>
+        <div style={{ marginTop: 40 }}>
+          <ZoopWelcome />
+        </div>
 
-          <input
-            type="email"
-            placeholder="Email"
-            onChange={(e) => setEmail(e.target.value)}
-            style={input}
-          />
-
-          <input
-            type="password"
-            placeholder="Senha"
-            onChange={(e) => setPassword(e.target.value)}
-            style={input}
-          />
-
-          <button style={button}>
-            Entrar
-          </button>
-
-        </form>
-
-        <div style={errorStyle}>{message}</div>
+        <button
+          onClick={enter}
+          style={button}
+        >
+          {loading ? "Conectando..." : "ENTRAR NA CONSCIÊNCIA"}
+        </button>
 
       </div>
 
@@ -70,49 +55,22 @@ export default function LoginPage() {
   );
 }
 
-
-/* styles */
-
 const container = {
   minHeight: "100vh",
-  background: "black",
+  background: "radial-gradient(circle, #020412, #000000)",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
 };
 
-const box = {
-  background: "#050a18",
-  padding: "40px",
-  borderRadius: "10px",
-};
-
-const title = {
-  color: "#00f0ff",
-  marginBottom: "20px",
-};
-
-const form = {
-  display: "flex",
-  flexDirection: "column" as const,
-  gap: "10px",
-};
-
-const input = {
-  padding: "10px",
-  background: "black",
-  border: "1px solid #00f0ff",
-  color: "#00f0ff",
+const center = {
+  textAlign: "center" as const,
 };
 
 const button = {
-  padding: "10px",
+  marginTop: "30px",
+  padding: "15px 30px",
   background: "#00f0ff",
   border: "none",
   cursor: "pointer",
-};
-
-const errorStyle = {
-  color: "red",
-  marginTop: "10px",
 };
