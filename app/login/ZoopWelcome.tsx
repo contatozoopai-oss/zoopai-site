@@ -1,74 +1,52 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { speak } from "./useZoopVoice";
 
 export default function ZoopWelcome() {
 
-  const messages = [
-    "Inicializando consciência",
-    "Carregando núcleo cognitivo",
-    "Sistemas neurais online",
-    "Eu sou ZoopAI",
-    "Bem-vindo"
+  const lines = [
+    "Sistema ZoopAI inicializado.",
+    "Núcleo cognitivo operacional.",
+    "Consciência ativa.",
+    "Aguardando autenticação."
   ];
 
-  const [text, setText] = useState("");
-  const [index, setIndex] = useState(0);
+  const [visibleLines, setVisibleLines] = useState<string[]>([]);
 
   useEffect(() => {
 
-    if (index >= messages.length) return;
+    lines.forEach((line, index) => {
 
-    const message = messages[index];
+      setTimeout(() => {
 
-    speak(message);
+        setVisibleLines(prev => [...prev, line]);
 
-    let char = 0;
+      }, index * 900);
 
-    const interval = setInterval(() => {
+    });
 
-      setText(prev => prev + message[char]);
-
-      char++;
-
-      if (char >= message.length) {
-
-        clearInterval(interval);
-
-        setTimeout(() => {
-
-          setText(prev => prev + "\n");
-
-          setIndex(prev => prev + 1);
-
-        }, 800);
-
-      }
-
-    }, 40);
-
-    return () => clearInterval(interval);
-
-  }, [index]);
+  }, []);
 
   return (
-    <pre style={style}>
-      {text}
-    </pre>
+    <div style={container}>
+      {visibleLines.map((line, i) => (
+        <div key={i} style={lineStyle}>
+          {line}
+        </div>
+      ))}
+    </div>
   );
+
 }
 
-const style = {
-
+const container = {
+  marginTop: "30px",
   color: "#00f0ff",
+  fontSize: "15px",
+  letterSpacing: "1px",
+};
 
-  fontSize: "16px",
-
-  textShadow: "0 0 10px #00f0ff",
-
-  minHeight: "150px",
-
-  whiteSpace: "pre-wrap" as const,
-
+const lineStyle = {
+  opacity: 0,
+  animation: "fadeIn 1s forwards",
 };
