@@ -9,13 +9,9 @@ export default function ZoopAI() {
   const router = useRouter();
 
   const [pulse, setPulse] = useState(0);
-
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
-
   const [loading, setLoading] = useState(false);
 
-
-  /* respiração */
 
   useEffect(() => {
 
@@ -29,8 +25,6 @@ export default function ZoopAI() {
 
   }, []);
 
-
-  /* mouse */
 
   useEffect(() => {
 
@@ -60,12 +54,8 @@ export default function ZoopAI() {
     const utterance = new SpeechSynthesisUtterance(text);
 
     utterance.lang = "pt-BR";
-
     utterance.rate = 0.9;
-
     utterance.pitch = 0.8;
-
-    utterance.volume = 1;
 
     synth.speak(utterance);
 
@@ -75,7 +65,7 @@ export default function ZoopAI() {
 
   async function iniciar() {
 
-    speak("Olá. Eu sou ZoopAI. Iniciando conexão com sua consciência.");
+    speak("Olá. Eu sou ZoopAI. Iniciando conexão.");
 
     setLoading(true);
 
@@ -89,7 +79,7 @@ export default function ZoopAI() {
 
     if (error) {
 
-      speak("Falha na autenticação");
+      speak("Erro na autenticação");
 
       setLoading(false);
 
@@ -97,13 +87,13 @@ export default function ZoopAI() {
 
     }
 
-    speak("Conexão estabelecida. Bem-vindo.");
+    speak("Conexão estabelecida");
 
     setTimeout(() => {
 
       router.push("/dashboard");
 
-    }, 2000);
+    }, 1500);
 
   }
 
@@ -113,12 +103,24 @@ export default function ZoopAI() {
 
     <div style={container}>
 
-      <div style={{
-        ...energy,
-        opacity: 0.3 + pulse * 0.2
-      }}/>
+      {/* CAMADA VISUAL SEM BLOQUEAR CLIQUE */}
 
-      <div style={center}>
+      <div
+        style={{
+          ...energy,
+          opacity: 0.3 + pulse * 0.2,
+          pointerEvents: "none",
+          zIndex: 0
+        }}
+      />
+
+
+
+      <div style={{
+        ...center,
+        zIndex: 10,
+        position: "relative"
+      }}>
 
         <div
           style={{
@@ -131,17 +133,24 @@ export default function ZoopAI() {
           }}
         >
 
-          <img src="/zoopai-avatar.png" style={avatar}/>
+          <img
+            src="/zoopai-avatar.png"
+            style={avatar}
+          />
 
         </div>
+
+
 
         <div style={title}>
           ZOOPAI
         </div>
 
+
         <div style={subtitle}>
           Entidade Cognitiva Ativa
         </div>
+
 
 
         <button
@@ -154,6 +163,7 @@ export default function ZoopAI() {
             : "INICIAR CONEXÃO"}
 
         </button>
+
 
       </div>
 
@@ -265,5 +275,7 @@ const button = {
   letterSpacing: "3px",
 
   cursor: "pointer",
+
+  fontSize: "16px",
 
 };
