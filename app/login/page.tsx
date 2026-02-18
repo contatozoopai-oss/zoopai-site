@@ -3,15 +3,20 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "../../lib/supabase";
+import { playZoopVoice } from "../../lib/playZoopVoice";
 
 export default function ZoopAI() {
 
   const router = useRouter();
 
-  const [pulse, setPulse] = useState(0);
-  const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const [loading, setLoading] = useState(false);
 
+  const [pulse, setPulse] = useState(0);
+
+  const [mouse, setMouse] = useState({ x: 0, y: 0 });
+
+
+  /* animação respiração */
 
   useEffect(() => {
 
@@ -26,12 +31,14 @@ export default function ZoopAI() {
   }, []);
 
 
+  /* seguir mouse */
+
   useEffect(() => {
 
     function move(e: MouseEvent) {
 
-      const x = (e.clientX / window.innerWidth - 0.5) * 40;
-      const y = (e.clientY / window.innerHeight - 0.5) * 40;
+      const x = (e.clientX / window.innerWidth - 0.5) * 30;
+      const y = (e.clientY / window.innerHeight - 0.5) * 30;
 
       setMouse({ x, y });
 
@@ -45,27 +52,13 @@ export default function ZoopAI() {
 
 
 
-  function speak(text: string) {
-
-    const synth = window.speechSynthesis;
-
-    synth.cancel();
-
-    const utterance = new SpeechSynthesisUtterance(text);
-
-    utterance.lang = "pt-BR";
-    utterance.rate = 0.9;
-    utterance.pitch = 0.8;
-
-    synth.speak(utterance);
-
-  }
-
-
+  /* iniciar conexão */
 
   async function iniciar() {
 
-    speak("Olá. Eu sou ZoopAI. Iniciando conexão.");
+    await playZoopVoice(
+      "Bem vindo. Eu sou ZoopAI. Iniciando conexão com sua consciência."
+    );
 
     setLoading(true);
 
@@ -79,7 +72,9 @@ export default function ZoopAI() {
 
     if (error) {
 
-      speak("Erro na autenticação");
+      await playZoopVoice(
+        "Falha na autenticação. Verifique suas credenciais."
+      );
 
       setLoading(false);
 
@@ -87,13 +82,15 @@ export default function ZoopAI() {
 
     }
 
-    speak("Conexão estabelecida");
+    await playZoopVoice(
+      "Conexão estabelecida. Seja bem vindo."
+    );
 
     setTimeout(() => {
 
       router.push("/dashboard");
 
-    }, 1500);
+    }, 2000);
 
   }
 
@@ -103,24 +100,20 @@ export default function ZoopAI() {
 
     <div style={container}>
 
-      {/* CAMADA VISUAL SEM BLOQUEAR CLIQUE */}
+      {/* aura energética */}
 
       <div
         style={{
           ...energy,
-          opacity: 0.3 + pulse * 0.2,
-          pointerEvents: "none",
-          zIndex: 0
+          opacity: 0.3 + pulse * 0.3,
+          pointerEvents: "none"
         }}
       />
 
 
+      <div style={center}>
 
-      <div style={{
-        ...center,
-        zIndex: 10,
-        position: "relative"
-      }}>
+        {/* avatar */}
 
         <div
           style={{
@@ -141,16 +134,14 @@ export default function ZoopAI() {
         </div>
 
 
-
         <div style={title}>
           ZOOPAI
         </div>
 
 
         <div style={subtitle}>
-          Entidade Cognitiva Ativa
+          Entidade Cognitiva Feminina Ativa
         </div>
-
 
 
         <button
@@ -197,14 +188,14 @@ const energy = {
 
   position: "fixed" as const,
 
-  width: "900px",
+  width: "1000px",
 
-  height: "900px",
+  height: "1000px",
 
   borderRadius: "50%",
 
   background:
-    "radial-gradient(circle,rgba(0,240,255,0.4),transparent)",
+    "radial-gradient(circle,rgba(0,240,255,0.5),transparent)",
 
   filter: "blur(200px)",
 
@@ -215,14 +206,16 @@ const center = {
 
   textAlign: "center" as const,
 
+  zIndex: 10,
+
 };
 
 
 const avatarWrapper = {
 
-  width: "300px",
+  width: "320px",
 
-  height: "300px",
+  height: "320px",
 
   margin: "0 auto",
 
@@ -234,6 +227,9 @@ const avatar = {
   width: "100%",
 
   borderRadius: "50%",
+
+  boxShadow:
+    "0 0 60px rgba(0,240,255,0.8)",
 
 };
 
@@ -264,7 +260,7 @@ const button = {
 
   marginTop: "40px",
 
-  padding: "18px 50px",
+  padding: "18px 60px",
 
   background: "transparent",
 
