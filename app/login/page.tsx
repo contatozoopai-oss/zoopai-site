@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase";
 import { useRouter } from "next/navigation";
 
-export default function LoginPage() {
+export default function ZoopAILogin() {
 
   const router = useRouter();
 
@@ -12,12 +12,24 @@ export default function LoginPage() {
 
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
 
+  const [pulse, setPulse] = useState(0);
+
+  useEffect(() => {
+
+    const interval = setInterval(() => {
+      setPulse(Math.sin(Date.now() * 0.002));
+    }, 16);
+
+    return () => clearInterval(interval);
+
+  }, []);
+
   useEffect(() => {
 
     function handleMove(e: MouseEvent) {
 
-      const x = (e.clientX / window.innerWidth - 0.5) * 20;
-      const y = (e.clientY / window.innerHeight - 0.5) * 20;
+      const x = (e.clientX / window.innerWidth - 0.5) * 30;
+      const y = (e.clientY / window.innerHeight - 0.5) * 30;
 
       setMouse({ x, y });
 
@@ -29,11 +41,11 @@ export default function LoginPage() {
 
   }, []);
 
-  async function enterZoopAI() {
+  async function enter() {
 
     setLoading(true);
 
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signInWithPassword({
 
       email: "contato.zoopai@gmail.com",
 
@@ -43,7 +55,7 @@ export default function LoginPage() {
 
     if (error) {
 
-      alert("Erro ao conectar");
+      alert("Falha na conexão");
 
       setLoading(false);
 
@@ -59,7 +71,10 @@ export default function LoginPage() {
 
     <div style={container}>
 
-      <div style={environment}></div>
+      <div style={{
+        ...backgroundGlow,
+        opacity: 0.3 + pulse * 0.2
+      }}/>
 
       <div style={center}>
 
@@ -67,7 +82,8 @@ export default function LoginPage() {
           style={{
             ...avatarWrapper,
             transform:
-              `translate(${mouse.x}px, ${mouse.y}px)`
+              `translate(${mouse.x}px, ${mouse.y}px)
+               scale(${1 + pulse * 0.02})`
           }}
         >
 
@@ -76,30 +92,41 @@ export default function LoginPage() {
             style={avatar}
           />
 
-          <div style={avatarGlow}></div>
+          <div style={{
+            ...aura,
+            opacity: 0.4 + pulse * 0.3
+          }}/>
 
         </div>
 
-        <div style={title}>
+        <div style={{
+          ...title,
+          textShadow:
+            `0 0 ${20 + pulse * 10}px #00f0ff`
+        }}>
           ZOOPAI
         </div>
 
         <div style={subtitle}>
-          Entidade Cognitiva Digital
+          Entidade Cognitiva Ativa
         </div>
 
         <div style={status}>
-          Sistema pronto para autenticação
+          Consciência operacional
         </div>
 
         <button
-          onClick={enterZoopAI}
-          style={button}
+          onClick={enter}
+          style={{
+            ...button,
+            boxShadow:
+              `0 0 ${20 + pulse * 10}px rgba(0,240,255,0.5)`
+          }}
         >
 
           {loading
             ? "Conectando..."
-            : "INICIAR CONSCIÊNCIA"}
+            : "ENTRAR NA CONSCIÊNCIA"}
 
         </button>
 
@@ -127,19 +154,25 @@ const container = {
 
   justifyContent: "center",
 
+  overflow: "hidden",
+
 };
 
 
-const environment = {
+const backgroundGlow = {
 
   position: "fixed" as const,
 
-  width: "100%",
+  width: "800px",
 
-  height: "100%",
+  height: "800px",
+
+  borderRadius: "50%",
 
   background:
-    "radial-gradient(circle, rgba(0,240,255,0.08), transparent)",
+    "radial-gradient(circle, rgba(0,240,255,0.4), transparent)",
+
+  filter: "blur(200px)",
 
 };
 
@@ -157,13 +190,13 @@ const avatarWrapper = {
 
   position: "relative" as const,
 
-  width: "280px",
+  width: "300px",
 
-  height: "280px",
+  height: "300px",
 
   margin: "0 auto",
 
-  transition: "transform 0.15s linear",
+  transition: "transform 0.2s ease",
 
 };
 
@@ -175,12 +208,12 @@ const avatar = {
   borderRadius: "50%",
 
   boxShadow:
-    "0 0 40px rgba(0,240,255,0.6), 0 0 120px rgba(0,240,255,0.2)",
+    "0 0 40px rgba(0,240,255,0.8), 0 0 120px rgba(0,240,255,0.4)",
 
 };
 
 
-const avatarGlow = {
+const aura = {
 
   position: "absolute" as const,
 
@@ -191,9 +224,9 @@ const avatarGlow = {
   borderRadius: "50%",
 
   background:
-    "radial-gradient(circle, rgba(0,240,255,0.3), transparent)",
+    "radial-gradient(circle, rgba(0,240,255,0.5), transparent)",
 
-  filter: "blur(60px)",
+  filter: "blur(80px)",
 
   zIndex: -1,
 
@@ -202,13 +235,15 @@ const avatarGlow = {
 
 const title = {
 
-  marginTop: "20px",
+  marginTop: "25px",
 
-  fontSize: "28px",
+  fontSize: "34px",
 
-  letterSpacing: "8px",
+  letterSpacing: "12px",
 
   color: "#00f0ff",
+
+  fontWeight: "300",
 
 };
 
@@ -226,7 +261,7 @@ const subtitle = {
 
 const status = {
 
-  marginTop: "20px",
+  marginTop: "15px",
 
   fontSize: "13px",
 
@@ -239,18 +274,20 @@ const button = {
 
   marginTop: "35px",
 
-  padding: "14px 40px",
+  padding: "16px 45px",
 
   background: "transparent",
 
-  border: "1px solid rgba(0,240,255,0.6)",
+  border: "1px solid rgba(0,240,255,0.7)",
 
   color: "#00f0ff",
 
-  letterSpacing: "2px",
+  letterSpacing: "3px",
 
   cursor: "pointer",
 
   fontSize: "14px",
+
+  transition: "all 0.2s ease",
 
 };
