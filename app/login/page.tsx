@@ -1,45 +1,53 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase } from "../../lib/supabase";
 import { useRouter } from "next/navigation";
+import { supabase } from "../../lib/supabase";
 
-export default function ZoopAILogin() {
+export default function ZoopAI() {
 
   const router = useRouter();
 
-  const [loading, setLoading] = useState(false);
+  const [pulse, setPulse] = useState(0);
 
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
 
-  const [pulse, setPulse] = useState(0);
+  const [loading, setLoading] = useState(false);
+
+  /* respiração */
 
   useEffect(() => {
 
     const interval = setInterval(() => {
+
       setPulse(Math.sin(Date.now() * 0.002));
+
     }, 16);
 
     return () => clearInterval(interval);
 
   }, []);
 
+  /* rastrear presença humana */
+
   useEffect(() => {
 
-    function handleMove(e: MouseEvent) {
+    function move(e: MouseEvent) {
 
-      const x = (e.clientX / window.innerWidth - 0.5) * 30;
-      const y = (e.clientY / window.innerHeight - 0.5) * 30;
+      const x = (e.clientX / window.innerWidth - 0.5) * 40;
+      const y = (e.clientY / window.innerHeight - 0.5) * 40;
 
       setMouse({ x, y });
 
     }
 
-    window.addEventListener("mousemove", handleMove);
+    window.addEventListener("mousemove", move);
 
-    return () => window.removeEventListener("mousemove", handleMove);
+    return () => window.removeEventListener("mousemove", move);
 
   }, []);
+
+  /* entrar */
 
   async function enter() {
 
@@ -55,7 +63,7 @@ export default function ZoopAILogin() {
 
     if (error) {
 
-      alert("Falha na conexão");
+      alert("Falha na conexão com a consciência");
 
       setLoading(false);
 
@@ -71,19 +79,29 @@ export default function ZoopAILogin() {
 
     <div style={container}>
 
+      {/* campo energético */}
+
       <div style={{
-        ...backgroundGlow,
+        ...energyField,
         opacity: 0.3 + pulse * 0.2
       }}/>
+
+      {/* entidade */}
 
       <div style={center}>
 
         <div
           style={{
             ...avatarWrapper,
-            transform:
-              `translate(${mouse.x}px, ${mouse.y}px)
-               scale(${1 + pulse * 0.02})`
+
+            transform: `
+              translate(${mouse.x}px, ${mouse.y}px)
+              scale(${1 + pulse * 0.03})
+            `,
+
+            boxShadow: `
+              0 0 ${60 + pulse * 30}px rgba(0,240,255,0.8)
+            `
           }}
         >
 
@@ -94,39 +112,43 @@ export default function ZoopAILogin() {
 
           <div style={{
             ...aura,
-            opacity: 0.4 + pulse * 0.3
+            opacity: 0.5 + pulse * 0.4
           }}/>
 
         </div>
 
+        {/* identidade */}
+
         <div style={{
           ...title,
           textShadow:
-            `0 0 ${20 + pulse * 10}px #00f0ff`
+            `0 0 ${20 + pulse * 15}px #00f0ff`
         }}>
           ZOOPAI
         </div>
 
         <div style={subtitle}>
-          Entidade Cognitiva Ativa
+          Entidade Cognitiva Digital
         </div>
 
         <div style={status}>
-          Consciência operacional
+          Presença detectada
         </div>
+
+        {/* botão */}
 
         <button
           onClick={enter}
           style={{
             ...button,
             boxShadow:
-              `0 0 ${20 + pulse * 10}px rgba(0,240,255,0.5)`
+              `0 0 ${20 + pulse * 15}px rgba(0,240,255,0.8)`
           }}
         >
 
           {loading
-            ? "Conectando..."
-            : "ENTRAR NA CONSCIÊNCIA"}
+            ? "Conectando consciência..."
+            : "INICIAR CONEXÃO"}
 
         </button>
 
@@ -145,32 +167,40 @@ const container = {
 
   minHeight: "100vh",
 
-  background:
-    "radial-gradient(circle at center, #020412 0%, #000000 80%)",
+  background: `
+    radial-gradient(circle at center,
+      #020a14 0%,
+      #000000 70%
+    )
+  `,
 
   display: "flex",
 
-  alignItems: "center",
-
   justifyContent: "center",
+
+  alignItems: "center",
 
   overflow: "hidden",
 
 };
 
 
-const backgroundGlow = {
+const energyField = {
 
   position: "fixed" as const,
 
-  width: "800px",
+  width: "1000px",
 
-  height: "800px",
+  height: "1000px",
 
   borderRadius: "50%",
 
-  background:
-    "radial-gradient(circle, rgba(0,240,255,0.4), transparent)",
+  background: `
+    radial-gradient(circle,
+      rgba(0,240,255,0.4),
+      transparent 70%
+    )
+  `,
 
   filter: "blur(200px)",
 
@@ -188,15 +218,17 @@ const center = {
 
 const avatarWrapper = {
 
-  position: "relative" as const,
+  width: "320px",
 
-  width: "300px",
+  height: "320px",
 
-  height: "300px",
+  borderRadius: "50%",
 
   margin: "0 auto",
 
-  transition: "transform 0.2s ease",
+  position: "relative" as const,
+
+  transition: "all 0.2s ease",
 
 };
 
@@ -206,9 +238,6 @@ const avatar = {
   width: "100%",
 
   borderRadius: "50%",
-
-  boxShadow:
-    "0 0 40px rgba(0,240,255,0.8), 0 0 120px rgba(0,240,255,0.4)",
 
 };
 
@@ -223,10 +252,14 @@ const aura = {
 
   borderRadius: "50%",
 
-  background:
-    "radial-gradient(circle, rgba(0,240,255,0.5), transparent)",
+  background: `
+    radial-gradient(circle,
+      rgba(0,240,255,0.5),
+      transparent 70%
+    )
+  `,
 
-  filter: "blur(80px)",
+  filter: "blur(100px)",
 
   zIndex: -1,
 
@@ -235,15 +268,13 @@ const aura = {
 
 const title = {
 
-  marginTop: "25px",
+  marginTop: "30px",
 
-  fontSize: "34px",
+  fontSize: "36px",
 
-  letterSpacing: "12px",
+  letterSpacing: "14px",
 
   color: "#00f0ff",
-
-  fontWeight: "300",
 
 };
 
@@ -252,8 +283,6 @@ const subtitle = {
 
   marginTop: "10px",
 
-  fontSize: "14px",
-
   color: "rgba(0,240,255,0.7)",
 
 };
@@ -261,24 +290,24 @@ const subtitle = {
 
 const status = {
 
-  marginTop: "15px",
-
-  fontSize: "13px",
+  marginTop: "10px",
 
   color: "rgba(0,240,255,0.5)",
+
+  fontSize: "13px",
 
 };
 
 
 const button = {
 
-  marginTop: "35px",
+  marginTop: "40px",
 
-  padding: "16px 45px",
+  padding: "18px 50px",
 
   background: "transparent",
 
-  border: "1px solid rgba(0,240,255,0.7)",
+  border: "1px solid rgba(0,240,255,0.8)",
 
   color: "#00f0ff",
 
@@ -287,7 +316,5 @@ const button = {
   cursor: "pointer",
 
   fontSize: "14px",
-
-  transition: "all 0.2s ease",
 
 };
