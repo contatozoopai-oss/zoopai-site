@@ -1,16 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { speak } from "./useZoopVoice";
 
 export default function ZoopWelcome() {
 
   const messages = [
-    "Inicializando consciência...",
-    "Carregando núcleo cognitivo...",
-    "Detectando presença humana...",
-    "Eu sou ZoopAI.",
-    "Estou online.",
-    "Bem-vindo."
+    "Inicializando consciência",
+    "Carregando núcleo cognitivo",
+    "Sistemas neurais online",
+    "Eu sou ZoopAI",
+    "Bem-vindo"
   ];
 
   const [text, setText] = useState("");
@@ -20,27 +20,33 @@ export default function ZoopWelcome() {
 
     if (index >= messages.length) return;
 
-    let charIndex = 0;
-    const current = messages[index];
+    const message = messages[index];
+
+    speak(message);
+
+    let char = 0;
 
     const interval = setInterval(() => {
 
-      setText((prev) => prev + current[charIndex]);
+      setText(prev => prev + message[char]);
 
-      charIndex++;
+      char++;
 
-      if (charIndex >= current.length) {
+      if (char >= message.length) {
 
         clearInterval(interval);
 
         setTimeout(() => {
-          setText((prev) => prev + "\n");
-          setIndex(index + 1);
-        }, 600);
+
+          setText(prev => prev + "\n");
+
+          setIndex(prev => prev + 1);
+
+        }, 800);
 
       }
 
-    }, 30);
+    }, 40);
 
     return () => clearInterval(interval);
 
@@ -54,8 +60,15 @@ export default function ZoopWelcome() {
 }
 
 const style = {
+
   color: "#00f0ff",
-  fontSize: "14px",
-  minHeight: "120px",
+
+  fontSize: "16px",
+
+  textShadow: "0 0 10px #00f0ff",
+
+  minHeight: "150px",
+
   whiteSpace: "pre-wrap" as const,
+
 };
