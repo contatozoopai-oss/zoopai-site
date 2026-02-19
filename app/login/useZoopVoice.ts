@@ -1,27 +1,39 @@
-export function speakZoop(message: string) {
+"use client"
+
+export function speakZoop(text: string) {
   if (typeof window === "undefined") return
 
   const synth = window.speechSynthesis
 
-  const utterance = new SpeechSynthesisUtterance(message)
+  function speakNow() {
+    const utter = new SpeechSynthesisUtterance(text)
 
-  utterance.lang = "pt-BR"
+    utter.lang = "pt-BR"
 
-  utterance.rate = 0.9
-  utterance.pitch = 1.1
-  utterance.volume = 1
+    // voz masculina estilo IA avançada
+    utter.rate = 0.88
+    utter.pitch = 0.75
+    utter.volume = 1
 
-  const voices = synth.getVoices()
+    const voices = synth.getVoices()
 
-  const femaleVoice =
-    voices.find(v => v.name.includes("Google português")) ||
-    voices.find(v => v.name.includes("Female")) ||
-    voices.find(v => v.lang === "pt-BR")
+    // prioridade para vozes masculinas naturais
+    const preferred =
+      voices.find(v => v.name.includes("Google português do Brasil")) ||
+      voices.find(v => v.name.includes("Microsoft Antonio")) ||
+      voices.find(v => v.name.includes("Daniel")) ||
+      voices.find(v => v.lang === "pt-BR") ||
+      voices[0]
 
-  if (femaleVoice) {
-    utterance.voice = femaleVoice
+    if (preferred) utter.voice = preferred
+
+    synth.cancel()
+    synth.speak(utter)
   }
 
-  synth.cancel()
-  synth.speak(utterance)
+  if (synth.getVoices().length === 0) {
+    synth.onvoiceschanged = speakNow
+  } else {
+    speakNow()
+  }
 }
