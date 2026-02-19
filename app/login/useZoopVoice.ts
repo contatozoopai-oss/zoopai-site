@@ -1,23 +1,27 @@
-"use client";
+export function speakZoop(message: string) {
+  if (typeof window === "undefined") return
 
-export function speak(text: string) {
+  const synth = window.speechSynthesis
 
-  if (typeof window === "undefined") return;
+  const utterance = new SpeechSynthesisUtterance(message)
 
-  const synth = window.speechSynthesis;
+  utterance.lang = "pt-BR"
 
-  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.rate = 0.9
+  utterance.pitch = 1.1
+  utterance.volume = 1
 
-  utterance.lang = "pt-BR";
+  const voices = synth.getVoices()
 
-  utterance.rate = 0.9;
+  const femaleVoice =
+    voices.find(v => v.name.includes("Google português")) ||
+    voices.find(v => v.name.includes("Female")) ||
+    voices.find(v => v.lang === "pt-BR")
 
-  utterance.pitch = 0.7;
+  if (femaleVoice) {
+    utterance.voice = femaleVoice
+  }
 
-  utterance.volume = 1;
-
-  synth.cancel();
-
-  synth.speak(utterance);
-
+  synth.cancel()
+  synth.speak(utterance)
 }
